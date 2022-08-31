@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour
 {
     //Variables
     private NavMeshAgent agent;
-    private bool playerDetected = true;
+    public bool playerDetected = true;
     private GameObject player;
 
     [Tooltip("How softly the enemies turn")]
@@ -17,17 +17,22 @@ public class EnemyMovement : MonoBehaviour
     [Tooltip("How close to get to the player")]
     public float stopDistance;
 
-    private void Awake() {
+    [Tooltip("The group the enemy is apart of")]
+    public int enemyGroup;
+
+    private void Start() {
         agent = GetComponent<NavMeshAgent>();
 
         player = GameObject.FindGameObjectWithTag("Player");
-
+        
+        if (enemyGroup < 0 || enemyGroup > GameManager.Instance.groupDetection.Length) { Debug.Log("Enemy group out of range"); }
         if (player == null) { Debug.Log("Player not found"); }
         if (agent == null) { Debug.Log("NavMeshAgent not found"); }
     }
 
     private void Update() {
         if (playerDetected) {
+            GameManager.Instance.groupDetection[enemyGroup] = true;
 
             //Look at player
             var lookPos = player.transform.position - transform.position;
@@ -51,6 +56,10 @@ public class EnemyMovement : MonoBehaviour
             else {
                 agent.isStopped = true;
             }
+        }
+
+        else if (GameManager.Instance.groupDetection[enemyGroup]) {
+            playerDetected = true;
         }
     }
 }

@@ -32,4 +32,6 @@ public class GameManager : MonoBehaviour
     }
 
     public bool Grounded = false;
+
+    public bool[] groupDetection;
 }

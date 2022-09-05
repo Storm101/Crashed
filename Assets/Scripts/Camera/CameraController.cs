@@ -46,6 +46,7 @@ public class CameraController : MonoBehaviour
     private float MouseYSum;
 
     private void Awake() {
+        int i = ReadMe.Length;
         StartPos = transform.localPosition.y;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -74,15 +75,6 @@ public class CameraController : MonoBehaviour
                 transform.Rotate(transform.parent.right, -MouseY, Space.World);
 
 
-            }
-            else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q) && Cursor.lockState == CursorLockMode.Locked) {
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true;
             }
 
         if ((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && GameManager.Instance.Grounded) {

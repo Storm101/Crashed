@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     public bool playerDetected = true;
     private GameObject player;
     private float stopDistance;
+    private bool shoot;
 
     [Tooltip("How softly the enemies turn")]
     public float turnDampening;
@@ -43,6 +44,8 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void Update() {
+        StartCoroutine("Detect");
+
         if (playerDetected) {
             GameManager.Instance.groupDetection[enemyGroup] = true;
 
@@ -68,14 +71,14 @@ public class EnemyMovement : MonoBehaviour
             else {
                 agent.isStopped = true;
             }
+
+            if (shoot) {
+                //shoot
+            }
         }
 
         else if (GameManager.Instance.groupDetection[enemyGroup]) {
             playerDetected = true;
-        }
-
-        else {
-            StartCoroutine("Detect");
         }
     }
 
@@ -86,6 +89,7 @@ public class EnemyMovement : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward + (transform.right / (i - rayResolution/2))* 1.5f, color: Color.red, 0.1f);
             if (Physics.Raycast(transform.position, transform.forward + (transform.right/(i-rayResolution/2))*1.5f, out hit)) {
                 if (hit.collider.tag == "Player" && hit.distance < viewDistance) {
+                    shoot = true;
                     playerDetected = true;
                     yield return null;
                 }
@@ -94,9 +98,11 @@ public class EnemyMovement : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit)) {
             if (hit.collider.tag == "Player") {
                 playerDetected = true;
+                shoot = true;
                 yield return null;
             }
         }
+        shoot = false;
         yield return new WaitForSeconds(.1f);
     }
 }

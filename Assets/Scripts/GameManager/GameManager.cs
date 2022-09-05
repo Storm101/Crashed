@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        Time.timeScale = 1;
     }
     
     public bool Grounded = false;
@@ -42,17 +44,6 @@ public class GameManager : MonoBehaviour
     //5 is win
 
     public Toggle[] checklist;
-
-    public void CollectItem(GameObject item) {
-        item.SetActive(false);
-        if (gameProgression < checklist.Length) {
-            checklist[gameProgression].isOn = true;
-            gameProgression++;
-        }
-        else {
-            Debug.LogError("More items than checklists");
-        }
-    }
 
     private void Update() {
         if (gameProgression == 5) {

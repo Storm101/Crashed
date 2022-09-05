@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCollect : MonoBehaviour
+public class Killbox : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            GameManager.Instance.CollectItem(gameObject);
+            PlayerHealth.Instance.health = 0;
         }
     }
 }

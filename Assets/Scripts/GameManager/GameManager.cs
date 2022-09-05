@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
     //4 is boss
     //5 is win
 
-    public Toggle[] checklist;
-
     private void Update() {
         if (gameProgression == 5) {
             //win

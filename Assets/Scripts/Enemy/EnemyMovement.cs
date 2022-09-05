@@ -10,15 +10,25 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     public bool playerDetected = true;
     private GameObject player;
+    private float stopDistance;
 
     [Tooltip("How softly the enemies turn")]
     public float turnDampening;
 
-    [Tooltip("How close to get to the player")]
-    public float stopDistance;
+    [Tooltip("How many raycasts the enemy does")]
+    public int rayResolution;
+
+    [Tooltip("How close to get to the player on average")]
+    public float averageStopDistance;
+
+    [Tooltip("How much the stop distance varies")]
+    public float stopDistanceVariation;
 
     [Tooltip("The group the enemy is apart of")]
     public int enemyGroup;
+
+    [Tooltip("How far the enemy can view the player from")]
+    public int viewDistance;
 
     private void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -28,6 +38,8 @@ public class EnemyMovement : MonoBehaviour
         if (enemyGroup < 0 || enemyGroup > GameManager.Instance.groupDetection.Length) { Debug.Log("Enemy group out of range"); }
         if (player == null) { Debug.Log("Player not found"); }
         if (agent == null) { Debug.Log("NavMeshAgent not found"); }
+        
+        stopDistance = Random.Range(averageStopDistance - stopDistanceVariation, averageStopDistance + stopDistanceVariation);
     }
 
     private void Update() {
@@ -61,5 +73,30 @@ public class EnemyMovement : MonoBehaviour
         else if (GameManager.Instance.groupDetection[enemyGroup]) {
             playerDetected = true;
         }
+
+        else {
+            StartCoroutine("Detect");
+        }
+    }
+
+    IEnumerator Detect() {
+        RaycastHit hit;
+
+        for (int i = 0; i < rayResolution; i++) {
+            Debug.DrawRay(transform.position, transform.forward + (transform.right / (i - rayResolution/2))* 1.5f, color: Color.red, 0.1f);
+            if (Physics.Raycast(transform.position, transform.forward + (transform.right/(i-rayResolution/2))*1.5f, out hit)) {
+                if (hit.collider.tag == "Player" && hit.distance < viewDistance) {
+                    playerDetected = true;
+                    yield return null;
+                }
+            }
+        }
+        if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+            if (hit.collider.tag == "Player") {
+                playerDetected = true;
+                yield return null;
+            }
+        }
+        yield return new WaitForSeconds(.1f);
     }
 }

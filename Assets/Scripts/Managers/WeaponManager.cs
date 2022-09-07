@@ -2,19 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName = "Weapon Manager", menuName = "ScriptableObjects/WeaponManager", order = 1)]
-public class WeaponManager : ScriptableObject
+public class WeaponManager : MonoBehaviour
 {
     //Weapon variables
-    [SerializeField] private WeaponClasses weapons;
-    private int weaponIndex;
-    private Weapons currentWeaponData;
-    private GameObject currentWeapon;
-    private Transform bulletSpawn;
+    public WeaponClasses weapons;
+    public int weaponIndex;
+
+    private Scene currentScene;
+
+    private void Start()
+    {
+        currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene != SceneManager.GetSceneAt(0))
+        {
+
+        }
+    }
 
     //Fire weapon function
-    public void Fire()
+    public void Fire(Transform weaponSpawn, Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData)
     {
         //Fire a bullet for the current weapon's bullet count amount of times
         for (int i = 0; i < currentWeaponData.bulletCount; i++)
@@ -46,7 +55,7 @@ public class WeaponManager : ScriptableObject
     }
 
     //Cooldown functions
-    public void Cooldowns()
+    public void Cooldowns(Weapons currentWeaponData)
     {
         foreach (Weapons weapon in weapons.primaryWeapons)
         {
@@ -117,7 +126,7 @@ public class Weapons
     [Header("Weapon Specs")]
     [Range(1,3)]
     [Tooltip("1 Auto, 2 Semi-Auto, 3 Manual")]
-    public int fireMode;
+    public int fireMode = 1;
     public float damage;
     public float spreadRadius;
     public int bulletCount;
@@ -134,7 +143,7 @@ public class Weapons
     [HideInInspector] public bool recharging;
     [Header("Cooling Variables")]
     public float coolingCooldown;
-    public float coolingCDTimer;
+    [HideInInspector] public float coolingCDTimer;
     public float coolingCDIncrease;
-    public float rechargingSpeed;
+    public float rechargingSpeed = 1;
 }

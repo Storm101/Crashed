@@ -51,7 +51,7 @@ public class CollectionSystem : MonoBehaviour
         {
             if(3-PartsCollected == 0)
             {
-                Debug.Log("Ship has been repaired!");
+                //Debug.Log("Ship has been repaired!");
             }
         }
         

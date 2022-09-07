@@ -82,6 +82,12 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player") {
+            playerDetected = true;
+        }
+    }
+
     IEnumerator Detect() {
         RaycastHit hit;
 

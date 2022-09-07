@@ -39,6 +39,9 @@ public class PlayerHealth : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
         healthSlider.value = health / maxHealth;
     }
 

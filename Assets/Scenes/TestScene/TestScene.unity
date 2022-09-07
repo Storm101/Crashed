@@ -305,6 +305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -1041,6 +1045,10 @@ PrefabInstance:
     - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_Name
       value: Enemy (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
@@ -2840,6 +2848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -3944,6 +3956,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -4944,6 +4960,18 @@ MonoBehaviour:
   maxHealth: 50
   healthSlider: {fileID: 1081738581}
   deathScreen: {fileID: 1361380382}
+--- !u!114 &1320289811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320289802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe189c800a21c54ea283e56f3f38ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1329942085
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,6 +5266,10 @@ PrefabInstance:
     - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_Name
       value: Enemy (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
@@ -6571,6 +6603,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -7314,6 +7350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -8031,6 +8071,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
     - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
       propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 397712076789246625, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}
+      propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 397712076789246628, guid: d0a0954bdf25d8f4f8f38a1fa6abce09, type: 3}

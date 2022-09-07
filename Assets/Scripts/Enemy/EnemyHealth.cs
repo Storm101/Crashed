@@ -12,7 +12,8 @@ public class EnemyHealth : MonoBehaviour
 
     private void Update() {
         if (health <= 0) {
-            Instantiate(deathParticles);
+            GameObject deathParticle = Instantiate(deathParticles);
+            deathParticle.transform.position = transform.position;
             Object.Destroy(gameObject);
         }
 

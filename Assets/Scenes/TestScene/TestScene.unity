@@ -6690,8 +6690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17dad881e821ec4eb42d537f2148e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseIntensity: 0.1
-  pulseSpeed: 1
+  pulseIntensity: 0.15
+  pulseSpeed: 4
 --- !u!1 &1906652275
 GameObject:
   m_ObjectHideFlags: 0

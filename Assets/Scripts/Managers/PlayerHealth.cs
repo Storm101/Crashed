@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public static PlayerHealth Instance {
         get {
             if (instance == null) {
-                Debug.LogError("GameManager not found");
+                Debug.LogError("PlayerHealth not found");
             }
             return instance;
         }
@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
             instance = this;
         }
         else if (instance != this) {
-            Debug.LogWarning("Multiple GameManagers found");
+            Debug.LogWarning("Multiple PlayerHealth found");
             Destroy(this);
             return;
         }

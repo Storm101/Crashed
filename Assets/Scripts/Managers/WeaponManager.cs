@@ -252,15 +252,15 @@ public class Weapons
     public float adsSpeed;
 
     //Rate of fire variables
-    public bool hasShot;
-    public float rateOfFireCDTimer;
+    [HideInInspector] public bool hasShot;
+    [HideInInspector] public float rateOfFireCDTimer;
 
     //Cooling variables
-    public bool isCooling;
-    public bool recharging;
+    [HideInInspector] public bool isCooling;
+    [HideInInspector] public bool recharging;
     [Header("Cooling Variables")]
     public float coolingCooldown;
-    public float coolingCDTimer;
+    [HideInInspector] public float coolingCDTimer;
     public float coolingCDIncrease;
     public float rechargingSpeed = 1;
 

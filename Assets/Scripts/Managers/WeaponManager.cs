@@ -10,7 +10,7 @@ public class WeaponManager : MonoBehaviour
     public WeaponClasses weapons;
 
     //Fire weapon function  | TODO: add recoil to currentWeapon
-    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData)
+    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight)
     {
         //Fire a bullet for the current weapon's bullet count amount of times
         for (int i = 0; i < currentWeaponData.bulletCount; i++)
@@ -21,7 +21,7 @@ public class WeaponManager : MonoBehaviour
 
             //Raycast where the camera is looking
             RaycastHit hit;
-            var ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            var ray = new Ray(eyeSight.position, eyeSight.forward);
             //Make the bullet look towards the raycast point if it exists, else make the bullet look forward towards the camera
             if (Physics.Raycast(ray, out hit))
                 bullet.transform.LookAt(hit.point);
@@ -39,6 +39,24 @@ public class WeaponManager : MonoBehaviour
 
             currentWeaponData.coolingCDTimer += currentWeaponData.coolingCDIncrease;
         }
+    }
+
+    //Recoil function
+    public void Recoil()
+    {
+        
+    }
+
+    //Aiming function
+    public void Aim()
+    {
+
+    }
+
+    //Swap weapons function
+    public void SwapWeapon()
+    {
+
     }
 
     //Cooldown functions

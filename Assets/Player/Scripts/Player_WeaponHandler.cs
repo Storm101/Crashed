@@ -11,10 +11,12 @@ public class Player_WeaponHandler : MonoBehaviour
     //Weapon data
     private WeaponClasses weaponList;
     private GameObject currentWeapon;
-    public Weapons currentWeaponData;
-    [SerializeField] private Transform weaponSpawn;
+    private Weapons currentWeaponData;
     private Transform bulletSpawn;
     private bool hasWeaponEquipped;
+    [SerializeField] private Transform eyeSight;
+    [SerializeField] private Transform weaponPosition;
+    [SerializeField] private Transform ADSPosition;
 
     //Weapon index variables
     //private int weaponIndex;
@@ -34,7 +36,7 @@ public class Player_WeaponHandler : MonoBehaviour
                 if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                 {
                     //Create weapon
-                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponSpawn, false);
+                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
                     //Set weapon data
                     currentWeaponData = weapon;
                     //weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
@@ -52,7 +54,7 @@ public class Player_WeaponHandler : MonoBehaviour
                 if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                 {
                     //Create weapon
-                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponSpawn, false);
+                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
                     //Set weapon data
                     currentWeaponData = weapon;
                     //weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
@@ -70,7 +72,7 @@ public class Player_WeaponHandler : MonoBehaviour
                 if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                 {
                     //Create weapon
-                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponSpawn, false);
+                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
                     //Set weapon data
                     currentWeaponData = weapon;
                     //weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
@@ -93,12 +95,12 @@ public class Player_WeaponHandler : MonoBehaviour
         if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
             if (Input.GetMouseButton(0))
-                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData);
+                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
         }
         else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
             if (Input.GetMouseButtonDown(0))
-                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData);
+                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
         }
     }
 }

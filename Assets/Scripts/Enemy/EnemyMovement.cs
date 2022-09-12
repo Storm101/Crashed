@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(EnemyShooting))]
 public class EnemyMovement : MonoBehaviour
 {
     //Variables
@@ -12,6 +13,7 @@ public class EnemyMovement : MonoBehaviour
     private GameObject player;
     private float stopDistance;
     private bool shoot;
+    private EnemyShooting shooting;
 
     [Tooltip("How softly the enemies turn")]
     public float turnDampening;
@@ -41,10 +43,13 @@ public class EnemyMovement : MonoBehaviour
         if (agent == null) { Debug.Log("NavMeshAgent not found"); }
         
         stopDistance = Random.Range(averageStopDistance - stopDistanceVariation, averageStopDistance + stopDistanceVariation);
+
+        shooting = GetComponent<EnemyShooting>();
     }
 
     private void Update() {
         StartCoroutine("Detect");
+        float distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), new Vector2(transform.position.x, transform.position.z));
 
         if (playerDetected) {
             GameManager.Instance.groupDetection[enemyGroup] = true;
@@ -54,8 +59,6 @@ public class EnemyMovement : MonoBehaviour
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnDampening);
-
-            float distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), new Vector2(transform.position.x, transform.position.z));
 
             //if far from player, go towards player
             if (distance > stopDistance) {
@@ -73,17 +76,15 @@ public class EnemyMovement : MonoBehaviour
             }
 
             if (shoot) {
-                //shoot
+                shooting.Shoot = true;
             }
         }
 
         else if (GameManager.Instance.groupDetection[enemyGroup]) {
             playerDetected = true;
         }
-    }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
+        if (distance < 1.5f) {
             playerDetected = true;
         }
     }

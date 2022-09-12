@@ -32,6 +32,11 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthSlider;
     public GameObject deathScreen;
 
+    public float healingAmount = 5;
+    public bool healing = true;
+    private float tempHealth = 0;
+    private float timer = 0;
+
     private void Update() {
         if (health <= 0) {
             deathScreen.SetActive(true);
@@ -43,6 +48,19 @@ public class PlayerHealth : MonoBehaviour
             health = maxHealth;
         }
         healthSlider.value = health / maxHealth;
+
+        if (health < maxHealth) {
+            if (health >= tempHealth) {
+                timer += Time.deltaTime;
+                if (timer > 3 && healing) {
+                    health += Time.deltaTime * healingAmount;
+                }
+            }
+            else {
+                timer = 0;
+            }
+            tempHealth = health;
+        }
     }
 
     public void Restart() {

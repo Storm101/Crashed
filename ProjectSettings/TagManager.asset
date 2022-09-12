@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - Enemy
   - Game Manager
+  - Healing
   layers:
   - Default
   - TransparentFX

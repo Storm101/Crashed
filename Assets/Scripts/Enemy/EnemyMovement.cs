@@ -33,6 +33,9 @@ public class EnemyMovement : MonoBehaviour
     [Tooltip("How far the enemy can view the player from")]
     public int viewDistance;
 
+    [Tooltip("The arms and gun of the enemy")]
+    public GameObject arms;
+
     private void Start() {
         agent = GetComponent<NavMeshAgent>();
 
@@ -58,6 +61,8 @@ public class EnemyMovement : MonoBehaviour
             var lookPos = player.transform.position - transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
+            arms.transform.LookAt(player.transform.position + Vector3.up);
+            arms.transform.rotation = Quaternion.Euler(arms.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, arms.transform.rotation.eulerAngles.z);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnDampening);
 
             //if far from player, go towards player

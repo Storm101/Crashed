@@ -26,7 +26,7 @@ public class WeaponManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
                 bullet.transform.LookAt(hit.point);
             else
-                bullet.transform.rotation = Camera.main.transform.rotation;
+                bullet.transform.rotation = eyeSight.rotation;
 
             //Get the direction the bullet is facing + a random Vector3 made from the spread radius
             Vector3 dir = bullet.transform.forward + new Vector3(UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius), UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius), UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius));
@@ -48,9 +48,12 @@ public class WeaponManager : MonoBehaviour
     }
 
     //Aiming function
-    public void Aim()
+    public void Aim(GameObject currentWeapon, Transform weaponPosition, Transform adsPosition, bool isAiming)
     {
-
+        if (isAiming)
+            currentWeapon.transform.position = Vector3.Lerp(currentWeapon.transform.position, adsPosition.localPosition, Time.deltaTime);
+        else
+            currentWeapon.transform.position = Vector3.Lerp(currentWeapon.transform.position, weaponPosition.localPosition, Time.deltaTime);
     }
 
     //Swap weapons function

@@ -28,7 +28,7 @@ public class Player_WeaponHandler : MonoBehaviour
     private void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
-        weaponList = weaponManager.weapons;
+        weaponList = new WeaponClasses(weaponManager.weapons);
 
         if (!hasWeaponEquipped)
         {
@@ -106,6 +106,13 @@ public class Player_WeaponHandler : MonoBehaviour
                 weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
         }
 
+        //Aim weapon
+        if (Input.GetMouseButton(1))
+            weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true);
+        else
+            weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false);
+
+        //Overheat UI
         Heat.value = currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
     }
 }

@@ -106,6 +106,6 @@ public class Player_WeaponHandler : MonoBehaviour
                 weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
         }
 
-        Heat.value = 1 - currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
+        Heat.value = currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
     }
 }

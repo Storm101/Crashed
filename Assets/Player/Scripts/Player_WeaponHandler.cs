@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_WeaponHandler : MonoBehaviour
 {
+    public Slider Heat;
+
     //Weapon Manager Variable
     private WeaponManager weaponManager;
 
@@ -102,5 +105,7 @@ public class Player_WeaponHandler : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
                 weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
         }
+
+        Heat.value = 1 - currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
     }
 }

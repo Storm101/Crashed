@@ -2227,7 +2227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb4d2792d2958414c8e6dc3e7edf86fd, type: 2}
+  - {fileID: 2100000, guid: 363dcacbd35d9d34185b25b5184cbaa5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3256,7 +3256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 77011977344212554, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -82.15
+      value: -102.21
       objectReference: {fileID: 0}
     - target: {fileID: 77011977344212554, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3292,7 +3292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 855383767165438855, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4321684685090812148, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3651,7 +3651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 77011977344212554, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -81.42
+      value: -101.479996
       objectReference: {fileID: 0}
     - target: {fileID: 77011977344212554, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3687,7 +3687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 855383767165438855, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4321684685090812148, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5450,7 +5450,7 @@ MonoBehaviour:
   weapons:
     primaryWeapons:
     - weaponName: Assault Rifle
-      weaponPrefab: {fileID: 6684720552221623437, guid: f83739b5d9bd4ad41b8950641f7ad015, type: 3}
+      weaponPrefab: {fileID: 7524331753003135563, guid: 25aa60c6302655c4fb20074af2b85d4c, type: 3}
       bulletPrefab: {fileID: 3266640434089361543, guid: 4ef899c12ddb9234abb446776982bc60, type: 3}
       unlocked: 1
       fireMode: 1
@@ -5883,7 +5883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 77011977344212554, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -82.15
+      value: -102.21
       objectReference: {fileID: 0}
     - target: {fileID: 77011977344212554, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5919,7 +5919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 855383767165438855, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4321684685090812148, guid: 91275f3cbae05364b986ab33ea93a1e7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7413,13 +7413,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1761384783958116524, guid: ffbb4e09d7735b849a800326849b4d71, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 3440705871469278585, guid: ffbb4e09d7735b849a800326849b4d71, type: 3}
       propertyPath: m_Name
       value: Ship
       objectReference: {fileID: 0}
     - target: {fileID: 3440705871469278585, guid: ffbb4e09d7735b849a800326849b4d71, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3915932940813756583, guid: ffbb4e09d7735b849a800326849b4d71, type: 3}
       propertyPath: m_RootOrder
@@ -7435,7 +7439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3915932940813756583, guid: ffbb4e09d7735b849a800326849b4d71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -75.90176
+      value: -95.961754
       objectReference: {fileID: 0}
     - target: {fileID: 3915932940813756583, guid: ffbb4e09d7735b849a800326849b4d71, type: 3}
       propertyPath: m_LocalRotation.w

@@ -14,7 +14,7 @@ public class Player_WeaponHandler : MonoBehaviour
     //Weapon data
     private WeaponClasses weaponList;
     private GameObject currentWeapon;
-    private Weapons currentWeaponData;
+    public Weapons currentWeaponData;
     private Transform bulletSpawn;
     private bool hasWeaponEquipped;
     [SerializeField] private Transform eyeSight;

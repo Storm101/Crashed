@@ -6,72 +6,78 @@ using UnityEngine;
 public class Player_WeaponHandler : MonoBehaviour
 {
     //Weapon Manager Variable
-    public WeaponManager weaponManager;
+    private WeaponManager weaponManager;
 
-    public Transform weaponSpawn;
-    public Transform bulletSpawn;
-
+    //Weapon data
+    private WeaponClasses weaponList;
     private GameObject currentWeapon;
     public Weapons currentWeaponData;
+    [SerializeField] private Transform weaponSpawn;
+    private Transform bulletSpawn;
+    private bool hasWeaponEquipped;
 
-    private bool foundWeapon;
-    private string currentWeaponType;
+    //Weapon index variables
+    //private int weaponIndex;
+    //private int currentWeaponType;
 
     private void Start()
     {
-        if (!foundWeapon)
+        weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
+        weaponList = weaponManager.weapons;
+
+        if (!hasWeaponEquipped)
         {
             //If there is a primary weapon available, spawn with that
-            foreach (Weapons weapon in weaponManager.weapons.primaryWeapons)
+            foreach (Weapons weapon in weaponList.primaryWeapons)
             {
                 //If the weapon in the primary weapons list is available and unlocked, start with that weapon
                 if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                 {
                     //Create weapon
-                    //weaponManager.currentWeapon = Instantiate(weapon.weaponPrefab, weaponManager.weaponSpawn, false);
+                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponSpawn, false);
                     //Set weapon data
-                    //weaponManager.currentWeaponData = weapon;
-                    weaponManager.weaponIndex = Array.IndexOf(weaponManager.weapons.primaryWeapons, weapon);
-                    //weaponManager.bulletSpawn = weaponManager.currentWeapon.transform.GetChild(0);
+                    currentWeaponData = weapon;
+                    //weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
+                    bulletSpawn = currentWeapon.transform.GetChild(0);
 
-                    foundWeapon = true;
-                    currentWeaponType = "primary";
+                    hasWeaponEquipped = true;
+                    //currentWeaponType = 0;
                     return;
                 }
             }
             //If there is a secondary weapon available, spawn with that
-            foreach (Weapons weapon in weaponManager.weapons.secondaryWeapons)
+            foreach (Weapons weapon in weaponList.secondaryWeapons)
             {
                 //If the weapon in the secondary weapons list is available and unlocked, start with that weapon
                 if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                 {
                     //Create weapon
-                    //weaponManager.currentWeapon = Instantiate(weapon.weaponPrefab, weaponManager.weaponSpawn, false);
+                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponSpawn, false);
                     //Set weapon data
-                    //weaponManager.currentWeaponData = weapon;
-                    weaponManager.weaponIndex = Array.IndexOf(weaponManager.weapons.secondaryWeapons, weapon);
-                    //weaponManager.bulletSpawn = weaponManager.currentWeapon.transform.GetChild(0);
+                    currentWeaponData = weapon;
+                    //weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
+                    bulletSpawn = currentWeapon.transform.GetChild(0);
 
-                    foundWeapon = true;
-                    currentWeaponType = "secondary";
+                    hasWeaponEquipped = true;
+                    //currentWeaponType = 0;
                     return;
                 }
             }
             //If there is a tertiary weapon available, spawn with that
-            foreach (Weapons weapon in weaponManager.weapons.tertiaryWeapons)
+            foreach (Weapons weapon in weaponList.tertiaryWeapons)
             {
                 //If the weapon in the tertiary weapons list is available and unlocked, start with that weapon
                 if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                 {
                     //Create weapon
-                    //weaponManager.currentWeapon = Instantiate(weapon.weaponPrefab, weaponManager.weaponSpawn, false);
+                    currentWeapon = Instantiate(weapon.weaponPrefab, weaponSpawn, false);
                     //Set weapon data
-                    //weaponManager.currentWeaponData = weapon;
-                    weaponManager.weaponIndex = Array.IndexOf(weaponManager.weapons.tertiaryWeapons, weapon);
-                    //weaponManager.bulletSpawn = weaponManager.currentWeapon.transform.GetChild(0);
+                    currentWeaponData = weapon;
+                    //weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
+                    bulletSpawn = currentWeapon.transform.GetChild(0);
 
-                    foundWeapon = true;
-                    currentWeaponType = "tertiary";
+                    hasWeaponEquipped = true;
+                    //currentWeaponType = 0;
                     return;
                 }
             }
@@ -80,30 +86,19 @@ public class Player_WeaponHandler : MonoBehaviour
 
     private void Update()
     {
+        //Cooldowns
+        weaponManager.Cooldowns(weaponList);
+
         //Fire weapon
-        /*if (weaponManager.currentWeaponData.fireMode == 1 && !weaponManager.currentWeaponData.isCooling && !weaponManager.currentWeaponData.hasShot)
+        if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
-            if (currentWeaponType == "primary")
-                if (Input.GetMouseButton(0) && !weaponManager.weapons.primaryWeapons[weaponManager.weaponIndex].isCooling)
-                    weaponManager.Fire();
-                else if (currentWeaponType == "secondary")
-                    if (Input.GetMouseButton(0) && !weaponManager.weapons.primaryWeapons[weaponManager.weaponIndex].isCooling)
-                        weaponManager.Fire();
-                    else if (currentWeaponType == "tertiary")
-                        if (Input.GetMouseButton(0) && !weaponManager.weapons.primaryWeapons[weaponManager.weaponIndex].isCooling)
-                            weaponManager.Fire();
+            if (Input.GetMouseButton(0))
+                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData);
         }
-        else if (!weaponManager.currentWeaponData.isCooling && !weaponManager.currentWeaponData.hasShot)
+        else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
-            if (currentWeaponType == "primary")
-                if (Input.GetMouseButtonDown(0) && !weaponManager.weapons.primaryWeapons[weaponManager.weaponIndex].isCooling)
-                    weaponManager.Fire();
-                else if (currentWeaponType == "secondary")
-                    if (Input.GetMouseButtonDown(0) && !weaponManager.weapons.primaryWeapons[weaponManager.weaponIndex].isCooling)
-                        weaponManager.Fire();
-                    else if (currentWeaponType == "tertiary")
-                        if (Input.GetMouseButtonDown(0) && !weaponManager.weapons.primaryWeapons[weaponManager.weaponIndex].isCooling)
-                            weaponManager.Fire();
-        }*/
+            if (Input.GetMouseButtonDown(0))
+                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData);
+        }
     }
 }

@@ -45,6 +45,11 @@ public class CameraController : MonoBehaviour
     private float HeadBobTimer;
     private float MouseYSum;
 
+    private float yRotation;
+
+    //Weapon rotation variable
+    public Transform weaponRotation;
+
     private void Awake() {
         int i = ReadMe.Length;
         StartPos = transform.localPosition.y;
@@ -55,27 +60,27 @@ public class CameraController : MonoBehaviour
 
     void Update() {
         float MouseX = Input.GetAxis("Mouse X") * MouseSensitivity;
-            float MouseY = Input.GetAxis("Mouse Y") * MouseSensitivity;
-            if (MouseY + MouseYSum >= 75) {
-                transform.localEulerAngles = new Vector3(-75, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                MouseY = 0;
-                MouseYSum = 75;
-            }
-            else if (MouseY + MouseYSum <= -75) {
-                transform.localEulerAngles = new Vector3(75, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                MouseY = 0;
-                MouseYSum = -75;
-            }
-            else if (Cursor.lockState == CursorLockMode.Locked) {
-                MouseYSum += MouseY;
-            }
+        float MouseY = Input.GetAxis("Mouse Y") * MouseSensitivity;
+        if (MouseY + MouseYSum >= 75) {
+            transform.localEulerAngles = new Vector3(-75, transform.localEulerAngles.y, transform.localEulerAngles.z);
+            MouseY = 0;
+            MouseYSum = 75;
+        }
+        else if (MouseY + MouseYSum <= -75) {
+            transform.localEulerAngles = new Vector3(75, transform.localEulerAngles.y, transform.localEulerAngles.z);
+            MouseY = 0;
+            MouseYSum = -75;
+        }
+        else if (Cursor.lockState == CursorLockMode.Locked) {
+            MouseYSum += MouseY;
+        }
 
-            if (Cursor.lockState == CursorLockMode.Locked) {
-                transform.parent.Rotate(Vector3.up, MouseX, Space.World);
-                transform.Rotate(transform.parent.right, -MouseY, Space.World);
+        if (Cursor.lockState == CursorLockMode.Locked) {
+            transform.parent.Rotate(Vector3.up, MouseX, Space.World);
+            transform.Rotate(transform.parent.right, -MouseY, Space.World);
 
 
-            }
+        }
 
         if ((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && GameManager.Instance.Grounded) {
             if (Input.GetKey(KeyCode.LeftShift)) {
@@ -85,6 +90,13 @@ public class CameraController : MonoBehaviour
                 HeadBob(10);
             }
         }
+
+        //Get the yRotation and clamp it
+        yRotation -= MouseY;
+        yRotation = Mathf.Clamp(yRotation, -75, 75);
+
+        //Rotation the weapon
+        weaponRotation.localRotation = Quaternion.Euler(yRotation, 0, 0);
     }
 
     private void HeadBob(float Speed) {

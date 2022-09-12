@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Enemy
+  - Game Manager
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Post
   - ShipPart
   - 
-  - 
-  - 
+  - Weapon
+  - Bulet
   - 
   - 
   - 

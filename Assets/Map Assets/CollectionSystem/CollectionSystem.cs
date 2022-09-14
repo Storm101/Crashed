@@ -60,6 +60,5 @@ public class CollectionSystem : MonoBehaviour
                 PartsCollected = 0;
             }
         }
-        
     }
 }

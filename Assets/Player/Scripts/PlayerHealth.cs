@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         if (health < maxHealth) {
             if (health >= tempHealth) {
                 timer += Time.deltaTime;
-                if (timer > 3 && healing) {
+                if (timer > 5 && healing) {
                     health += Time.deltaTime * healingAmount;
                 }
             }

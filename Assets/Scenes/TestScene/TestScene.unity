@@ -2259,6 +2259,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponPosition
       objectReference: {fileID: 0}
+    - target: {fileID: 4190903119179075989, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5393215578589016640, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2291,9 +2295,21 @@ PrefabInstance:
       propertyPath: playerBulletMat
       value: 
       objectReference: {fileID: 2100000, guid: 95263ea5b8ec981409255b60d06d6c26, type: 2}
+    - target: {fileID: 8217738854957082757, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: currentWeaponData.spreadRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594000347282441777, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_RootOrder
@@ -4923,9 +4939,9 @@ MonoBehaviour:
       unlocked: 1
       fireMode: 1
       damage: 6
-      spreadRadius: 3
-      bulletCount: 5
-      bulletSpeed: 0.5
+      spreadRadius: 0
+      bulletCount: 1
+      bulletSpeed: 40
       rateOfFire: 0.15
       recoilAmount: 0
       adsSpeed: 10

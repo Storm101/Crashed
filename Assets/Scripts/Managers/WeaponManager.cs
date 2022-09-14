@@ -246,6 +246,7 @@ public class Weapons
     [Tooltip("1 Auto, 2 Semi-Auto")]
     public int fireMode = 1;
     public float damage;
+    [Range(0,0.5f)]
     public float spreadRadius;
     public int bulletCount;
     public float bulletSpeed;

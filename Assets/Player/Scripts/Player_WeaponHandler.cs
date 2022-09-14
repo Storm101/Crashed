@@ -105,12 +105,12 @@ public class Player_WeaponHandler : MonoBehaviour
             if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
             {
                 if (Input.GetMouseButton(0))
-                    weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight, playerBulletMat);
+                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat);
             }
             else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
             {
                 if (Input.GetMouseButtonDown(0))
-                    weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight, playerBulletMat);
+                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat);
             }
 
             //Aim weapon

@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
     public LayerMask ignoreLayer;
 
     //Fire weapon function  | TODO: add recoil to currentWeapon
-    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight, Material bulletMat)
+    public void Fire(Transform bulletSpawn, Transform recoilController, Weapons currentWeaponData, Transform eyeSight, Material bulletMat)
     {
         //Fire a bullet for the current weapon's bullet count amount of times
         for (int i = 0; i < currentWeaponData.bulletCount; i++)
@@ -39,6 +39,8 @@ public class WeaponManager : MonoBehaviour
             //Add force to the bullet by the dir variable * the bullet speed, using ForceMode.Impulse for immediate fixed speed
             bullet.GetComponent<Rigidbody>().AddForce(dir * currentWeaponData.bulletSpeed, ForceMode.Impulse);
 
+            Recoil(recoilController, currentWeaponData);
+
             //Set the weapon to hasShot
             currentWeaponData.hasShot = true;
 
@@ -47,9 +49,9 @@ public class WeaponManager : MonoBehaviour
     }
 
     //Recoil function
-    public void Recoil()
+    public void Recoil(Transform recoilController, Weapons currentWeaponData)
     {
-        
+        recoilController.Rotate(new Vector3(-currentWeaponData.recoilAmount, 0, 0));
     }
 
     //Aiming function

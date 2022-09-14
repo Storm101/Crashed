@@ -1582,6 +1582,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395673140}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1434186700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9119037151317392988, guid: ba952bc5098e30a4aa651c0f589bb583, type: 3}
+  m_PrefabInstance: {fileID: 9119037150444937405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1443491268
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,6 +2567,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4518038752134169797, guid: 0abb19cfaeeda5f4ab6df0754d4748c7, type: 3}
+      propertyPath: weapons.primaryWeapons.Array.data[1].unlocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4518038753086373315, guid: 0abb19cfaeeda5f4ab6df0754d4748c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2587,6 +2596,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8865800958086946933, guid: ba952bc5098e30a4aa651c0f589bb583, type: 3}
+      propertyPath: arms
+      value: 
+      objectReference: {fileID: 1434186700}
     - target: {fileID: 9119037150795035370, guid: ba952bc5098e30a4aa651c0f589bb583, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -24,6 +24,7 @@ public class EnemyShooting : MonoBehaviour {
 
     //Individual variables
     [SerializeField] private Material enemyBulletMat;
+    [SerializeField] private Transform arms;
 
     private void Start() {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
@@ -40,7 +41,7 @@ public class EnemyShooting : MonoBehaviour {
         if (!currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
             if (Shoot)
-                weaponManager.Fire(bulletSpawn, null, currentWeaponData, eyeSight, enemyBulletMat);
+                weaponManager.Fire(bulletSpawn, arms, currentWeaponData, eyeSight, enemyBulletMat);
         }
     }
 }

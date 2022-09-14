@@ -428,8 +428,8 @@ public class WeaponManager : MonoBehaviour
                     else
                         weapon.coolingCDTimer -= Time.deltaTime * weapon.rechargingSpeed;
                 }
-                //If the weapon is not cooling but its cooldownCDTimer is greater tahn 0, decrease teh cooldown timer by Time.deltaTime
-                else if (weapon.coolingCDTimer > 0)
+                //If the weapon is not cooling but its cooldownCDTimer is greater than 0, decrease the cooldown timer by Time.deltaTime
+                else if (weapon.coolingCDTimer > 0 && !weapon.hasShot)
                     weapon.coolingCDTimer -= Time.deltaTime;
                 //If the weapon's coolingCDTimer is greater than or equal to the coolingCooldown, set the weapon cooling to true
                 if (weapon.coolingCDTimer >= weapon.coolingCooldown)
@@ -472,7 +472,7 @@ public class WeaponManager : MonoBehaviour
                     else
                         weapon.coolingCDTimer -= Time.deltaTime * weapon.rechargingSpeed;
                 }
-                //If the weapon is not cooling but its cooldownCDTimer is greater tahn 0, decrease teh cooldown timer by Time.deltaTime
+                //If the weapon is not cooling but its cooldownCDTimer is greater than 0, decrease the cooldown timer by Time.deltaTime
                 else if (weapon.coolingCDTimer > 0)
                     weapon.coolingCDTimer -= Time.deltaTime;
                 //If the weapon's coolingCDTimer is greater than or equal to the coolingCooldown, set the weapon cooling to true
@@ -516,7 +516,7 @@ public class WeaponManager : MonoBehaviour
                     else
                         weapon.coolingCDTimer -= Time.deltaTime * weapon.rechargingSpeed;
                 }
-                //If the weapon is not cooling but its cooldownCDTimer is greater tahn 0, decrease teh cooldown timer by Time.deltaTime
+                //If the weapon is not cooling but its cooldownCDTimer is greater than 0, decrease the cooldown timer by Time.deltaTime
                 else if (weapon.coolingCDTimer > 0)
                     weapon.coolingCDTimer -= Time.deltaTime;
                 //If the weapon's coolingCDTimer is greater than or equal to the coolingCooldown, set the weapon cooling to true

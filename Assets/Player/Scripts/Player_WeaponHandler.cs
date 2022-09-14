@@ -129,6 +129,10 @@ public class Player_WeaponHandler : MonoBehaviour
         {
             weaponManager.SwapWeapon(currentWeapon, 2, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            weaponManager.SwapWeapon(currentWeapon, 3, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
+        }
 
 
         //Adjust overheat slider to the current weapon's heat level

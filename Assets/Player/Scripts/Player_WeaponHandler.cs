@@ -6,15 +6,13 @@ using UnityEngine.UI;
 
 public class Player_WeaponHandler : MonoBehaviour
 {
-    public Slider Heat;
-
-    //Weapon Manager Variable
+    //Weapon manager variable
     private WeaponManager weaponManager;
 
     //Weapon data
     private WeaponClasses weaponList;
     private GameObject currentWeapon;
-    public Weapons currentWeaponData;
+    [SerializeField] private Weapons currentWeaponData;
     private Transform bulletSpawn;
     private bool hasWeaponEquipped;
     [SerializeField] private Transform eyeSight;
@@ -25,11 +23,20 @@ public class Player_WeaponHandler : MonoBehaviour
     //private int weaponIndex;
     //private int currentWeaponType;
 
+    //Individual variables
+    [SerializeField] private Material playerBulletMat;
+
+    //Weapon heat slider variable
+    public Slider Heat;
+
     private void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
         weaponList = new WeaponClasses(weaponManager.weapons);
 
+        
+
+        //Equip the first available weapon
         if (!hasWeaponEquipped)
         {
             //If there is a primary weapon available, spawn with that
@@ -98,12 +105,12 @@ public class Player_WeaponHandler : MonoBehaviour
         if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
             if (Input.GetMouseButton(0))
-                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
+                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight, playerBulletMat);
         }
         else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
             if (Input.GetMouseButtonDown(0))
-                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
+                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight, playerBulletMat);
         }
 
         //Aim weapon
@@ -112,7 +119,7 @@ public class Player_WeaponHandler : MonoBehaviour
         else
             weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false);
 
-        //Overheat UI
+        //Adjust overheat slider to the current weapon's heat level
         Heat.value = currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
     }
 }

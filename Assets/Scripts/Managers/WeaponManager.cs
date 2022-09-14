@@ -10,13 +10,14 @@ public class WeaponManager : MonoBehaviour
     public WeaponClasses weapons;
 
     //Fire weapon function  | TODO: add recoil to currentWeapon
-    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight)
+    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight, Material bulletMat)
     {
         //Fire a bullet for the current weapon's bullet count amount of times
         for (int i = 0; i < currentWeaponData.bulletCount; i++)
         {
             //Instantiate the bullet prefab & set the bullet's damage
             GameObject bullet = Instantiate(currentWeaponData.bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            bullet.GetComponent<MeshRenderer>().material = bulletMat;
             bullet.GetComponent<Bullet>().damage = currentWeaponData.damage;
 
             //Raycast where the camera is looking
@@ -50,10 +51,11 @@ public class WeaponManager : MonoBehaviour
     //Aiming function
     public void Aim(GameObject currentWeapon, Transform weaponPosition, Transform adsPosition, Weapons currentWeaponData, bool isAiming)
     {
+        //If the entity is aiming, lerp the weapon position to the adsPosition, else lerp it back to the weaponPosition
         if (isAiming)
             currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, adsPosition.localPosition, currentWeaponData.adsSpeed * Time.deltaTime);
         else
-            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, weaponPosition.localPosition, currentWeaponData.adsSpeed * Time.deltaTime);
+            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, new Vector3(0, 0, 0), currentWeaponData.adsSpeed * Time.deltaTime);
     }
 
     //Swap weapons function

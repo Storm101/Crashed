@@ -60,7 +60,7 @@ public class Door : MonoBehaviour
                 else {
                     CurrentWave++;
                     for (int i = 0; i < waves[CurrentWave]; i++) {
-                        Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform);
+                        Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
                     }
                 }
             }

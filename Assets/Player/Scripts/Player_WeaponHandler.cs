@@ -21,7 +21,7 @@ public class Player_WeaponHandler : MonoBehaviour
 
     //Weapon index variables
     [HideInInspector] public int weaponIndex;
-    //private int currentWeaponType;
+    [HideInInspector] public int currentWeaponType;
 
     //Individual variables
     [SerializeField] private Material playerBulletMat;
@@ -51,7 +51,7 @@ public class Player_WeaponHandler : MonoBehaviour
                     bulletSpawn = currentWeapon.transform.GetChild(0);
 
                     hasWeaponEquipped = true;
-                    //currentWeaponType = 0;
+                    currentWeaponType = 1;
                     return;
                 }
             }
@@ -69,7 +69,7 @@ public class Player_WeaponHandler : MonoBehaviour
                     bulletSpawn = currentWeapon.transform.GetChild(0);
 
                     hasWeaponEquipped = true;
-                    //currentWeaponType = 0;
+                    currentWeaponType = 2;
                     return;
                 }
             }
@@ -87,7 +87,7 @@ public class Player_WeaponHandler : MonoBehaviour
                     bulletSpawn = currentWeapon.transform.GetChild(0);
 
                     hasWeaponEquipped = true;
-                    //currentWeaponType = 0;
+                    currentWeaponType = 3;
                     return;
                 }
             }
@@ -123,7 +123,11 @@ public class Player_WeaponHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            weaponManager.SwapWeapon(currentWeapon, 1, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>());
+            weaponManager.SwapWeapon(currentWeapon, 1, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            weaponManager.SwapWeapon(currentWeapon, 2, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
         }
 
 

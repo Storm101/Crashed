@@ -59,7 +59,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     //Swap weapons function
-    public void SwapWeapon(GameObject currentWeapon, int weaponType, WeaponClasses weaponList, int weaponIndex, Transform weaponPosition, Weapons currentWeaponData, Transform bulletSpawn, Player_WeaponHandler weaponHandler)
+    public void SwapWeapon(GameObject currentWeapon, int weaponType, WeaponClasses weaponList, int weaponIndex, Transform weaponPosition, Weapons currentWeaponData, Transform bulletSpawn, Player_WeaponHandler weaponHandler, int currentWeaponType)
     {
         //Found weapon variable
         bool foundWeapon = false;
@@ -67,60 +67,32 @@ public class WeaponManager : MonoBehaviour
         //If the weapon type is primary, swap to an available primary weapon
         if (weaponType == 1)
         {
-            //If the current weapon is the last in the primary weapons list, search for the first available weapon
-            if (weaponIndex >= weaponList.primaryWeapons.Length - 1)
+            if (currentWeaponType != 1)
             {
                 //Search for weapon
                 foreach (Weapons weapon in weaponList.primaryWeapons)
                 {
-                    //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
-                    if (Array.IndexOf(weaponList.primaryWeapons, weapon) != weaponIndex)
+                    //If the weapon found is set up correctly, equip that weapon
+                    if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
                     {
-                        if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
-                        {
-                            //Destroy the current weapon
-                            Destroy(currentWeapon);
-                            //Create new weapon
-                            weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
-                            //Set new weapon data
-                            weaponHandler.currentWeaponData = weapon;
-                            weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
-                            weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+                        //Destroy the current weapon
+                        Destroy(currentWeapon);
+                        //Create new weapon
+                        weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                        //Set new weapon data
+                        weaponHandler.currentWeaponData = weapon;
+                        weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
+                        weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
 
-                            return;
-                        }
+                        weaponHandler.currentWeaponType = 1;
+                        return;
                     }
                 }
-            }
-            //If the current weapon is not the last in the primary weapons list, search for the next available weapon
+            } 
             else
             {
-                //Search for weapon
-                foreach (Weapons weapon in weaponList.primaryWeapons)
-                {
-                    //If the weapon found is not before the current weapon in the list and it is set up correctly, equip that weapon
-                    if (Array.IndexOf(weaponList.primaryWeapons, weapon) > weaponIndex)
-                    {
-                        if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
-                        {
-                            //Destroy the current weapon
-                            Destroy(currentWeapon);
-                            //Create new weapon
-                            weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
-                            //Set new weapon data
-                            weaponHandler.currentWeaponData = weapon;
-                            weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
-                            weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
-
-                            //Set found weapon to true
-                            foundWeapon = true;
-
-                            return;
-                        }
-                    }
-                }
-                //If the next available weapon was not found, search for the first available weapon
-                if (!foundWeapon)
+                //If the current weapon is the last in the primary weapons list, search for the first available weapon
+                if (weaponIndex >= weaponList.primaryWeapons.Length - 1)
                 {
                     //Search for weapon
                     foreach (Weapons weapon in weaponList.primaryWeapons)
@@ -139,7 +111,63 @@ public class WeaponManager : MonoBehaviour
                                 weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
                                 weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
 
+                                weaponHandler.currentWeaponType = 1;
                                 return;
+                            }
+                        }
+                    }
+                }
+                //If the current weapon is not the last in the primary weapons list, search for the next available weapon
+                else
+                {
+                    //Search for weapon
+                    foreach (Weapons weapon in weaponList.primaryWeapons)
+                    {
+                        //If the weapon found is not before the current weapon in the list and it is set up correctly, equip that weapon
+                        if (Array.IndexOf(weaponList.primaryWeapons, weapon) > weaponIndex)
+                        {
+                            if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                            {
+                                //Destroy the current weapon
+                                Destroy(currentWeapon);
+                                //Create new weapon
+                                weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                //Set new weapon data
+                                weaponHandler.currentWeaponData = weapon;
+                                weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
+                                weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                //Set found weapon to true
+                                foundWeapon = true;
+
+                                weaponHandler.currentWeaponType = 1;
+                                return;
+                            }
+                        }
+                    }
+                    //If the next available weapon was not found, search for the first available weapon
+                    if (!foundWeapon)
+                    {
+                        //Search for weapon
+                        foreach (Weapons weapon in weaponList.primaryWeapons)
+                        {
+                            //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
+                            if (Array.IndexOf(weaponList.primaryWeapons, weapon) != weaponIndex)
+                            {
+                                if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                                {
+                                    //Destroy the current weapon
+                                    Destroy(currentWeapon);
+                                    //Create new weapon
+                                    weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                    //Set new weapon data
+                                    weaponHandler.currentWeaponData = weapon;
+                                    weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
+                                    weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                    weaponHandler.currentWeaponType = 1;
+                                    return;
+                                }
                             }
                         }
                     }
@@ -149,17 +177,221 @@ public class WeaponManager : MonoBehaviour
         //If the weapon type is secondary, swap to an available secondary weapon
         else if (weaponType == 2)
         {
-            foreach (Weapons weapon in weaponList.secondaryWeapons)
+            if (currentWeaponType != 2)
             {
+                //Search for weapon
+                foreach (Weapons weapon in weaponList.secondaryWeapons)
+                {
+                    //If the weapon found is set up correctly, equip that weapon
+                    if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                    {
+                        //Destroy the current weapon
+                        Destroy(currentWeapon);
+                        //Create new weapon
+                        weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                        //Set new weapon data
+                        weaponHandler.currentWeaponData = weapon;
+                        weaponHandler.weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
+                        weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
 
+                        weaponHandler.currentWeaponType = 2;
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                //If the current weapon is the last in the secondary weapons list, search for the first available weapon
+                if (weaponIndex >= weaponList.secondaryWeapons.Length - 1)
+                {
+                    //Search for weapon
+                    foreach (Weapons weapon in weaponList.secondaryWeapons)
+                    {
+                        //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
+                        if (Array.IndexOf(weaponList.secondaryWeapons, weapon) != weaponIndex)
+                        {
+                            if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                            {
+                                //Destroy the current weapon
+                                Destroy(currentWeapon);
+                                //Create new weapon
+                                weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                //Set new weapon data
+                                weaponHandler.currentWeaponData = weapon;
+                                weaponHandler.weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
+                                weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                weaponHandler.currentWeaponType = 2;
+                                return;
+                            }
+                        }
+                    }
+                }
+                //If the current weapon is not the last in the secondary weapons list, search for the next available weapon
+                else
+                {
+                    //Search for weapon
+                    foreach (Weapons weapon in weaponList.secondaryWeapons)
+                    {
+                        //If the weapon found is not before the current weapon in the list and it is set up correctly, equip that weapon
+                        if (Array.IndexOf(weaponList.secondaryWeapons, weapon) > weaponIndex)
+                        {
+                            if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                            {
+                                //Destroy the current weapon
+                                Destroy(currentWeapon);
+                                //Create new weapon
+                                weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                //Set new weapon data
+                                weaponHandler.currentWeaponData = weapon;
+                                weaponHandler.weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
+                                weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                //Set found weapon to true
+                                foundWeapon = true;
+
+                                weaponHandler.currentWeaponType = 2;
+                                return;
+                            }
+                        }
+                    }
+                    //If the next available weapon was not found, search for the first available weapon
+                    if (!foundWeapon)
+                    {
+                        //Search for weapon
+                        foreach (Weapons weapon in weaponList.secondaryWeapons)
+                        {
+                            //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
+                            if (Array.IndexOf(weaponList.secondaryWeapons, weapon) != weaponIndex)
+                            {
+                                if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                                {
+                                    //Destroy the current weapon
+                                    Destroy(currentWeapon);
+                                    //Create new weapon
+                                    weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                    //Set new weapon data
+                                    weaponHandler.currentWeaponData = weapon;
+                                    weaponHandler.weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
+                                    weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                    weaponHandler.currentWeaponType = 2;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         //If the weapon type is tertiary, swap to an available tertiary weapon
         else if (weaponType == 3)
         {
-            foreach (Weapons weapon in weaponList.tertiaryWeapons)
+            if (currentWeaponType != 3)
             {
+                //Search for weapon
+                foreach (Weapons weapon in weaponList.tertiaryWeapons)
+                {
+                    //If the weapon found is set up correctly, equip that weapon
+                    if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                    {
+                        //Destroy the current weapon
+                        Destroy(currentWeapon);
+                        //Create new weapon
+                        weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                        //Set new weapon data
+                        weaponHandler.currentWeaponData = weapon;
+                        weaponHandler.weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
+                        weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
 
+                        weaponHandler.currentWeaponType = 2;
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                //If the current weapon is the last in the tertiary weapons list, search for the first available weapon
+                if (weaponIndex >= weaponList.tertiaryWeapons.Length - 1)
+                {
+                    //Search for weapon
+                    foreach (Weapons weapon in weaponList.tertiaryWeapons)
+                    {
+                        //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
+                        if (Array.IndexOf(weaponList.tertiaryWeapons, weapon) != weaponIndex)
+                        {
+                            if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                            {
+                                //Destroy the current weapon
+                                Destroy(currentWeapon);
+                                //Create new weapon
+                                weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                //Set new weapon data
+                                weaponHandler.currentWeaponData = weapon;
+                                weaponHandler.weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
+                                weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                weaponHandler.currentWeaponType = 2;
+                                return;
+                            }
+                        }
+                    }
+                }
+                //If the current weapon is not the last in the tertiary weapons list, search for the next available weapon
+                else
+                {
+                    //Search for weapon
+                    foreach (Weapons weapon in weaponList.tertiaryWeapons)
+                    {
+                        //If the weapon found is not before the current weapon in the list and it is set up correctly, equip that weapon
+                        if (Array.IndexOf(weaponList.tertiaryWeapons, weapon) > weaponIndex)
+                        {
+                            if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                            {
+                                //Destroy the current weapon
+                                Destroy(currentWeapon);
+                                //Create new weapon
+                                weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                //Set new weapon data
+                                weaponHandler.currentWeaponData = weapon;
+                                weaponHandler.weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
+                                weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                //Set found weapon to true
+                                foundWeapon = true;
+
+                                weaponHandler.currentWeaponType = 2;
+                                return;
+                            }
+                        }
+                    }
+                    //If the next available weapon was not found, search for the first available weapon
+                    if (!foundWeapon)
+                    {
+                        //Search for weapon
+                        foreach (Weapons weapon in weaponList.tertiaryWeapons)
+                        {
+                            //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
+                            if (Array.IndexOf(weaponList.tertiaryWeapons, weapon) != weaponIndex)
+                            {
+                                if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
+                                {
+                                    //Destroy the current weapon
+                                    Destroy(currentWeapon);
+                                    //Create new weapon
+                                    weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
+                                    //Set new weapon data
+                                    weaponHandler.currentWeaponData = weapon;
+                                    weaponHandler.weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
+                                    weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
+
+                                    weaponHandler.currentWeaponType = 2;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

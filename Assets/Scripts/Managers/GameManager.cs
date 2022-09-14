@@ -43,9 +43,14 @@ public class GameManager : MonoBehaviour
     //4 is boss
     //5 is win
 
+    public int EnemiesLeft;
+
     private void Update() {
         if (gameProgression == 5) {
             //win
         }
+
+        //Used in waves
+        EnemiesLeft = 0;
     }
 }

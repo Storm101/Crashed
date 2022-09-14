@@ -9,6 +9,9 @@ public class WeaponManager : MonoBehaviour
     //Weapon variables
     public WeaponClasses weapons;
 
+    //Raycast ignore layer
+    public LayerMask ignoreLayer;
+
     //Fire weapon function  | TODO: add recoil to currentWeapon
     public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight, Material bulletMat)
     {
@@ -24,7 +27,7 @@ public class WeaponManager : MonoBehaviour
             RaycastHit hit;
             var ray = new Ray(eyeSight.position, eyeSight.forward);
             //Make the bullet look towards the raycast point if it exists, else make the bullet look forward towards the camera
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, ~ignoreLayer))
                 bullet.transform.LookAt(hit.point);
             else
                 bullet.transform.rotation = eyeSight.rotation;

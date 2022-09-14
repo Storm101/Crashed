@@ -6,30 +6,35 @@ using UnityEngine.UI;
 
 public class Player_WeaponHandler : MonoBehaviour
 {
-    public Slider Heat;
-
-    //Weapon Manager Variable
+    //Weapon manager variable
     private WeaponManager weaponManager;
 
     //Weapon data
     private WeaponClasses weaponList;
-    private GameObject currentWeapon;
-    private Weapons currentWeaponData;
-    private Transform bulletSpawn;
+    [SerializeField] public GameObject currentWeapon;
+    [SerializeField] public Weapons currentWeaponData;
+    [HideInInspector] public Transform bulletSpawn;
     private bool hasWeaponEquipped;
     [SerializeField] private Transform eyeSight;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] private Transform ADSPosition;
 
     //Weapon index variables
-    //private int weaponIndex;
+    [HideInInspector] public int weaponIndex;
     //private int currentWeaponType;
+
+    //Individual variables
+    [SerializeField] private Material playerBulletMat;
+
+    //Weapon heat slider variable
+    public Slider Heat;
 
     private void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
         weaponList = new WeaponClasses(weaponManager.weapons);
 
+        //Equip the first available weapon
         if (!hasWeaponEquipped)
         {
             //If there is a primary weapon available, spawn with that
@@ -42,7 +47,7 @@ public class Player_WeaponHandler : MonoBehaviour
                     currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
                     //Set weapon data
                     currentWeaponData = weapon;
-                    //weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
+                    weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
                     bulletSpawn = currentWeapon.transform.GetChild(0);
 
                     hasWeaponEquipped = true;
@@ -60,7 +65,7 @@ public class Player_WeaponHandler : MonoBehaviour
                     currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
                     //Set weapon data
                     currentWeaponData = weapon;
-                    //weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
+                    weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
                     bulletSpawn = currentWeapon.transform.GetChild(0);
 
                     hasWeaponEquipped = true;
@@ -78,7 +83,7 @@ public class Player_WeaponHandler : MonoBehaviour
                     currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
                     //Set weapon data
                     currentWeaponData = weapon;
-                    //weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
+                    weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
                     bulletSpawn = currentWeapon.transform.GetChild(0);
 
                     hasWeaponEquipped = true;
@@ -94,25 +99,35 @@ public class Player_WeaponHandler : MonoBehaviour
         //Cooldowns
         weaponManager.Cooldowns(weaponList);
 
-        //Fire weapon
-        if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
+        if (currentWeapon)
         {
-            if (Input.GetMouseButton(0))
-                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
+            //Fire weapon
+            if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
+            {
+                if (Input.GetMouseButton(0))
+                    weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight, playerBulletMat);
+            }
+            else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight, playerBulletMat);
+            }
+
+            //Aim weapon
+            if (Input.GetMouseButton(1))
+                weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true);
+            else
+                weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false);
         }
-        else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
+       
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (Input.GetMouseButtonDown(0))
-                weaponManager.Fire(bulletSpawn, currentWeapon, currentWeaponData, eyeSight);
+            weaponManager.SwapWeapon(currentWeapon, 1, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>());
         }
 
-        //Aim weapon
-        if (Input.GetMouseButton(1))
-            weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true);
-        else
-            weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false);
 
-        //Overheat UI
+        //Adjust overheat slider to the current weapon's heat level
         Heat.value = currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
     }
 }

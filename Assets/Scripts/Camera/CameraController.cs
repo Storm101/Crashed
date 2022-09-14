@@ -94,6 +94,9 @@ public class CameraController : MonoBehaviour
         //Get the yRotation and clamp it
         yRotation -= MouseY;
         yRotation = Mathf.Clamp(yRotation, -75, 75);
+
+        //Rotation the weapon
+        weaponRotation.localRotation = Quaternion.Euler(yRotation, 0, 0);
     }
 
     private void HeadBob(float Speed) {

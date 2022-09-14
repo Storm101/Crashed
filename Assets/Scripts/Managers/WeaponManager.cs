@@ -10,14 +10,13 @@ public class WeaponManager : MonoBehaviour
     public WeaponClasses weapons;
 
     //Fire weapon function  | TODO: add recoil to currentWeapon
-    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight, Material bulletMat)
+    public void Fire(Transform bulletSpawn, GameObject currentWeapon, Weapons currentWeaponData, Transform eyeSight)
     {
         //Fire a bullet for the current weapon's bullet count amount of times
         for (int i = 0; i < currentWeaponData.bulletCount; i++)
         {
-            //Instantiate the bullet prefab and set it's variables set the bullet's damage
+            //Instantiate the bullet prefab & set the bullet's damage
             GameObject bullet = Instantiate(currentWeaponData.bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            bullet.GetComponent<MeshRenderer>().material = bulletMat;
             bullet.GetComponent<Bullet>().damage = currentWeaponData.damage;
 
             //Raycast where the camera is looking
@@ -51,117 +50,16 @@ public class WeaponManager : MonoBehaviour
     //Aiming function
     public void Aim(GameObject currentWeapon, Transform weaponPosition, Transform adsPosition, Weapons currentWeaponData, bool isAiming)
     {
-        //If the entity is aiming, lerp the weapon position to the adsPosition, else lerp it back to the weaponPosition
         if (isAiming)
             currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, adsPosition.localPosition, currentWeaponData.adsSpeed * Time.deltaTime);
         else
-            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, new Vector3(0, 0, 0), currentWeaponData.adsSpeed * Time.deltaTime);
+            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, weaponPosition.localPosition, currentWeaponData.adsSpeed * Time.deltaTime);
     }
 
     //Swap weapons function
-    public void SwapWeapon(GameObject currentWeapon, int weaponType, WeaponClasses weaponList, int weaponIndex, Transform weaponPosition, Weapons currentWeaponData, Transform bulletSpawn, Player_WeaponHandler weaponHandler)
+    public void SwapWeapon()
     {
-        //Found weapon variable
-        bool foundWeapon = false;
 
-        //If the weapon type is primary, swap to an available primary weapon
-        if (weaponType == 1)
-        {
-            //If the current weapon is the last in the primary weapons list, search for the first available weapon
-            if (weaponIndex >= weaponList.primaryWeapons.Length - 1)
-            {
-                //Search for weapon
-                foreach (Weapons weapon in weaponList.primaryWeapons)
-                {
-                    //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
-                    if (Array.IndexOf(weaponList.primaryWeapons, weapon) != weaponIndex)
-                    {
-                        if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
-                        {
-                            //Destroy the current weapon
-                            Destroy(currentWeapon);
-                            //Create new weapon
-                            weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
-                            //Set new weapon data
-                            weaponHandler.currentWeaponData = weapon;
-                            weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
-                            weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
-
-                            return;
-                        }
-                    }
-                }
-            }
-            //If the current weapon is not the last in the primary weapons list, search for the next available weapon
-            else
-            {
-                //Search for weapon
-                foreach (Weapons weapon in weaponList.primaryWeapons)
-                {
-                    //If the weapon found is not before the current weapon in the list and it is set up correctly, equip that weapon
-                    if (Array.IndexOf(weaponList.primaryWeapons, weapon) > weaponIndex)
-                    {
-                        if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
-                        {
-                            //Destroy the current weapon
-                            Destroy(currentWeapon);
-                            //Create new weapon
-                            weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
-                            //Set new weapon data
-                            weaponHandler.currentWeaponData = weapon;
-                            weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
-                            weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
-
-                            //Set found weapon to true
-                            foundWeapon = true;
-
-                            return;
-                        }
-                    }
-                }
-                //If the next available weapon was not found, search for the first available weapon
-                if (!foundWeapon)
-                {
-                    //Search for weapon
-                    foreach (Weapons weapon in weaponList.primaryWeapons)
-                    {
-                        //If the weapon found is not the same as the current weapon and it is set up correctly, equip that weapon
-                        if (Array.IndexOf(weaponList.primaryWeapons, weapon) != weaponIndex)
-                        {
-                            if (weapon.weaponPrefab && weapon.bulletPrefab && weapon.unlocked)
-                            {
-                                //Destroy the current weapon
-                                Destroy(currentWeapon);
-                                //Create new weapon
-                                weaponHandler.currentWeapon = Instantiate(weapon.weaponPrefab, weaponPosition, false);
-                                //Set new weapon data
-                                weaponHandler.currentWeaponData = weapon;
-                                weaponHandler.weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
-                                weaponHandler.bulletSpawn = weaponHandler.currentWeapon.transform.GetChild(0);
-
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //If the weapon type is secondary, swap to an available secondary weapon
-        else if (weaponType == 2)
-        {
-            foreach (Weapons weapon in weaponList.secondaryWeapons)
-            {
-
-            }
-        }
-        //If the weapon type is tertiary, swap to an available tertiary weapon
-        else if (weaponType == 3)
-        {
-            foreach (Weapons weapon in weaponList.tertiaryWeapons)
-            {
-
-            }
-        }
     }
 
     //Cooldown functions
@@ -346,7 +244,6 @@ public class Weapons
     [Tooltip("1 Auto, 2 Semi-Auto")]
     public int fireMode = 1;
     public float damage;
-    [Range(0,0.5f)]
     public float spreadRadius;
     public int bulletCount;
     public float bulletSpeed;
@@ -355,15 +252,15 @@ public class Weapons
     public float adsSpeed;
 
     //Rate of fire variables
-    [HideInInspector] public bool hasShot;
-    [HideInInspector] public float rateOfFireCDTimer;
+    public bool hasShot;
+    public float rateOfFireCDTimer;
 
     //Cooling variables
-    [HideInInspector] public bool isCooling;
-    [HideInInspector] public bool recharging;
+    public bool isCooling;
+    public bool recharging;
     [Header("Cooling Variables")]
     public float coolingCooldown;
-    [HideInInspector] public float coolingCDTimer;
+    public float coolingCDTimer;
     public float coolingCDIncrease;
     public float rechargingSpeed = 1;
 

@@ -22,12 +22,9 @@ public class EnemyShooting : MonoBehaviour {
     //private int weaponIndex;
     //private int currentWeaponType;
 
-    //Individual variables
-    [SerializeField] private Material enemyBulletMat;
-
     private void Start() {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
-        weaponList = new WeaponClasses(weaponManager.weapons);
+        weaponList = weaponManager.weapons;
 
         if (!hasWeaponEquipped) {
             //If there is a primary weapon available, spawn with that
@@ -52,15 +49,13 @@ public class EnemyShooting : MonoBehaviour {
         weaponManager.Cooldowns(weaponList);
 
         //Fire weapon
-        if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
-        {
+        if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot) {
             if (Shoot)
-                weaponManager.Fire(bulletSpawn, null, currentWeaponData, eyeSight, enemyBulletMat);
+                weaponManager.Fire(bulletSpawn, null, currentWeaponData, eyeSight);
         }
-        else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot)
-        {
+        else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot) {
             if (Shoot)
-                weaponManager.Fire(bulletSpawn, null, currentWeaponData, eyeSight, enemyBulletMat);
+                weaponManager.Fire(bulletSpawn, null, currentWeaponData, eyeSight);
         }
     }
 }

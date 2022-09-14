@@ -734,6 +734,7 @@ MonoBehaviour:
   Shoot: 0
   eyeSight: {fileID: 8152606062363058232}
   enemyBulletMat: {fileID: 2100000, guid: 65011ce5c75fab24f910ace0668a47d6, type: 2}
+  arms: {fileID: 3655480939669120909}
 --- !u!114 &8677458205114215890
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1111,7 +1111,7 @@ GameObject:
   - component: {fileID: 8865800958086946935}
   - component: {fileID: 8865800958086946933}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Droid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,6 +1240,7 @@ MonoBehaviour:
   Shoot: 0
   eyeSight: {fileID: 4401234482946128361}
   enemyBulletMat: {fileID: 2100000, guid: 65011ce5c75fab24f910ace0668a47d6, type: 2}
+  arms: {fileID: 9119037151317392988}
 --- !u!1 &9119037150828754564
 GameObject:
   m_ObjectHideFlags: 0

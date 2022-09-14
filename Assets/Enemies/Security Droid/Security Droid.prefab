@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 1978712686913672893}
   - component: {fileID: 1978712686913672895}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Security Droid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,6 +464,7 @@ MonoBehaviour:
     bulletSpeed: 0
     rateOfFire: 0
     recoilAmount: 0
+    adsSpeed: 0
     hasShot: 0
     rateOfFireCDTimer: 0
     isCooling: 0
@@ -475,6 +476,8 @@ MonoBehaviour:
   BulletSpawn: {fileID: 2229626728276787277}
   Shoot: 0
   eyeSight: {fileID: 6730692567013216035}
+  enemyBulletMat: {fileID: 0}
+  arms: {fileID: 2229626728899643542}
 --- !u!1 &2229626728899643543
 GameObject:
   m_ObjectHideFlags: 0

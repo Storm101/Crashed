@@ -2349,6 +2349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 723111206090969010, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 3970866081728865657, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: deathScreen
       value: 
@@ -2392,6 +2396,10 @@ PrefabInstance:
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847916932672262557, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: antialiasing
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_RootOrder
@@ -5188,7 +5196,7 @@ MonoBehaviour:
     tertiaryWeapons: []
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!1 &1591344656
 GameObject:
   m_ObjectHideFlags: 0

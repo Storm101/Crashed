@@ -14,6 +14,7 @@ public class CollectionSystem : MonoBehaviour
     public Toggle Toggle3;
     public GameObject Ship;
     public int PartsCollected;
+    public int PartsNeeded = 3;
 
     void OnTriggerEnter(Collider col)
     {
@@ -49,9 +50,14 @@ public class CollectionSystem : MonoBehaviour
         }
         if (Ship)
         {
-            if(3-PartsCollected == 0)
+            if(PartsNeeded-PartsCollected == 0)
             {
-                //Debug.Log("Ship has been repaired!");
+                Debug.Log("Ship has been repaired!");
+            }
+            else
+            {
+                PartsNeeded = PartsNeeded - PartsCollected;
+                PartsCollected = 0;
             }
         }
         

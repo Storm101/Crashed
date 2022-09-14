@@ -8,7 +8,7 @@ public class ShipTemp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            if (other.GetComponent<CollectionSystem>().PartsCollected == 3) {
+            if (other.GetComponent<CollectionSystem>().PartsCollected == 1 && other.GetComponent<CollectionSystem>().PartsNeeded == 1) {
                 win.SetActive(true);
             }
         }

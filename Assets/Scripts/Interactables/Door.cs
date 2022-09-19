@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
     private BoxCollider m_Trigger;
 
     private int CurrentWave = -1;
-    Animator animator;
+    private Animator animator;
 
     private void Start() {
         BoxCollider[] boxColliders = GetComponents<BoxCollider>();

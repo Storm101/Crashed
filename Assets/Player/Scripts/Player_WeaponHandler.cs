@@ -49,6 +49,9 @@ public class Player_WeaponHandler : MonoBehaviour
                     currentWeaponData = weapon;
                     weaponIndex = Array.IndexOf(weaponList.primaryWeapons, weapon);
                     bulletSpawn = currentWeapon.transform.GetChild(0);
+                    currentWeapon.layer = 11;
+                    foreach (Transform child in currentWeapon.transform)
+                        child.gameObject.layer = 11;
 
                     hasWeaponEquipped = true;
                     currentWeaponType = 1;
@@ -67,6 +70,9 @@ public class Player_WeaponHandler : MonoBehaviour
                     currentWeaponData = weapon;
                     weaponIndex = Array.IndexOf(weaponList.secondaryWeapons, weapon);
                     bulletSpawn = currentWeapon.transform.GetChild(0);
+                    currentWeapon.layer = 11;
+                    foreach (Transform child in currentWeapon.transform)
+                        child.gameObject.layer = 11;
 
                     hasWeaponEquipped = true;
                     currentWeaponType = 2;
@@ -85,6 +91,9 @@ public class Player_WeaponHandler : MonoBehaviour
                     currentWeaponData = weapon;
                     weaponIndex = Array.IndexOf(weaponList.tertiaryWeapons, weapon);
                     bulletSpawn = currentWeapon.transform.GetChild(0);
+                    currentWeapon.layer = 11;
+                    foreach (Transform child in currentWeapon.transform)
+                        child.gameObject.layer = 11;
 
                     hasWeaponEquipped = true;
                     currentWeaponType = 3;
@@ -115,9 +124,9 @@ public class Player_WeaponHandler : MonoBehaviour
 
             //Aim weapon
             if (Input.GetMouseButton(1))
-                weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true);
+                weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, true, true);
             else
-                weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false);
+                weaponManager.Aim(currentWeapon, weaponPosition, ADSPosition, currentWeaponData, false, true);
         }
        
 

@@ -55,13 +55,31 @@ public class WeaponManager : MonoBehaviour
     }
 
     //Aiming function
-    public void Aim(GameObject currentWeapon, Transform weaponPosition, Transform adsPosition, Weapons currentWeaponData, bool isAiming)
+    public void Aim(GameObject currentWeapon, Transform weaponPosition, Transform adsPosition, Weapons currentWeaponData, bool isAiming, bool isPlayer)
     {
         //If the entity is aiming, lerp the weapon position to the adsPosition, else lerp it back to the weaponPosition
         if (isAiming)
-            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, adsPosition.localPosition, currentWeaponData.adsSpeed * Time.deltaTime);
+        {
+            if (currentWeaponData.adsTimer < 1)
+                currentWeaponData.adsTimer += currentWeaponData.adsSpeed * 0.8f * Time.deltaTime;
+            else
+                currentWeaponData.adsTimer = 1;
+
+            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, adsPosition.localPosition, currentWeaponData.adsSpeed * 1.2f * Time.deltaTime);
+            if (isPlayer)
+                Camera.main.fieldOfView = Mathf.Lerp(90, 90/currentWeaponData.adsScope, currentWeaponData.adsTimer);
+        }
         else
-            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, new Vector3(0, 0, 0), currentWeaponData.adsSpeed * Time.deltaTime);
+        {
+            if (currentWeaponData.adsTimer > 0)
+                currentWeaponData.adsTimer -= currentWeaponData.adsSpeed * 0.8f * Time.deltaTime;
+            else
+                currentWeaponData.adsTimer = 0;
+
+            currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition, new Vector3(0, 0, 0), currentWeaponData.adsSpeed * 1.2f * Time.deltaTime);
+            if (isPlayer)
+                Camera.main.fieldOfView = Mathf.Lerp(90, 90/currentWeaponData.adsScope, currentWeaponData.adsTimer);
+        }
     }
 
     //Swap weapons function
@@ -591,6 +609,8 @@ public class Weapons
     public float rateOfFire;
     public float recoilAmount;
     public float adsSpeed;
+    public float adsScope;
+    [HideInInspector] public float adsTimer;
 
     //Rate of fire variables
     [HideInInspector] public bool hasShot;
@@ -620,6 +640,8 @@ public class Weapons
         this.rateOfFire = other.rateOfFire;
         this.recoilAmount = other.recoilAmount;
         this.adsSpeed = other.adsSpeed;
+        this.adsScope = other.adsScope;
+        this.adsTimer = other.adsTimer;
 
         this.hasShot = other.hasShot;
         this.rateOfFireCDTimer = other.rateOfFireCDTimer;

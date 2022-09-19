@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Door : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Door : MonoBehaviour
     private BoxCollider m_Trigger;
 
     private int CurrentWave = -1;
+    Animator animator;
 
     private void Start() {
         BoxCollider[] boxColliders = GetComponents<BoxCollider>();
@@ -34,18 +36,20 @@ public class Door : MonoBehaviour
             m_Collider = boxColliders[0];
         }
         m_Renderer = GetComponent<MeshRenderer>();
-        m_Renderer.enabled = false;
+        //m_Renderer.enabled = false;
         m_Collider.enabled = false;
         m_Trigger.enabled = true;
         inWave = false;
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             inWave = true;
-            m_Renderer.enabled = true;
+            //m_Renderer.enabled = true;
             m_Trigger.enabled = false;
             m_Collider.enabled = true;
+            animator.enabled = true;
         }
     }
 
@@ -53,8 +57,9 @@ public class Door : MonoBehaviour
         if (inWave) {
             if (GameManager.Instance.EnemiesLeft == 0) {
                 if (CurrentWave == waves.Length-1) {
-                    m_Renderer.enabled = false;
+                    //m_Renderer.enabled = false;
                     m_Collider.enabled = false;
+                    animator.Play("Base Layer.DoorReverse", 0, -1);
                     inWave = false;
                 }
                 else {

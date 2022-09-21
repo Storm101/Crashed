@@ -722,6 +722,8 @@ MonoBehaviour:
     rateOfFire: 0
     recoilAmount: 0
     adsSpeed: 0
+    adsScope: 0
+    adsTimer: 0
     hasShot: 0
     rateOfFireCDTimer: 0
     isCooling: 0
@@ -731,7 +733,7 @@ MonoBehaviour:
     coolingCDIncrease: 0
     rechargingSpeed: 1
   BulletSpawn: {fileID: 3655480940157759318}
-  Shoot: 0
+  Shoot: 1
   eyeSight: {fileID: 8152606062363058232}
   enemyBulletMat: {fileID: 2100000, guid: 65011ce5c75fab24f910ace0668a47d6, type: 2}
   arms: {fileID: 3655480939669120909}

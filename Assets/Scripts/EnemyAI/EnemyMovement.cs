@@ -51,7 +51,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void Update() {
-        StartCoroutine("Detect");
+        StartCoroutine(Detect());
         float distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), new Vector2(transform.position.x, transform.position.z));
 
         if (playerDetected) {
@@ -96,7 +96,7 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Detect() {
         RaycastHit hit;
-
+        shoot = false;
         for (int i = 0; i < rayResolution; i++) {
             Debug.DrawRay(transform.position, transform.forward + (transform.right / (i - rayResolution/2))* 1.5f, color: Color.red, 0.1f);
             if (Physics.Raycast(transform.position, transform.forward + (transform.right/(i-rayResolution/2))*1.5f, out hit)) {
@@ -114,7 +114,6 @@ public class EnemyMovement : MonoBehaviour
                 yield return null;
             }
         }
-        shoot = false;
         yield return new WaitForSeconds(.1f);
     }
 }

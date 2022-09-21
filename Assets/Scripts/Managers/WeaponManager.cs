@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
     public LayerMask ignoreLayer;
 
     //Fire weapon function  | TODO: add recoil to currentWeapon
-    public void Fire(Transform bulletSpawn, Transform recoilController, Weapons currentWeaponData, Transform eyeSight, Material bulletMat)
+    public void Fire(Transform bulletSpawn, Transform recoilController, Weapons currentWeaponData, Transform eyeSight, Material bulletMat, bool isPlayer)
     {
         //Fire a bullet for the current weapon's bullet count amount of times
         for (int i = 0; i < currentWeaponData.bulletCount; i++)
@@ -23,6 +23,10 @@ public class WeaponManager : MonoBehaviour
             bullet.GetComponent<MeshRenderer>().material = bulletMat;
             bullet.GetComponent<Light>().color = bulletMat.color;
             bullet.GetComponent<Bullet>().damage = currentWeaponData.damage;
+            if (isPlayer)
+                bullet.GetComponent<Bullet>().isEnemyBullet = false;
+            else
+                bullet.GetComponent<Bullet>().isEnemyBullet = true;
 
             //Raycast where the camera is looking
             RaycastHit hit;

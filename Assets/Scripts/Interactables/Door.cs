@@ -83,7 +83,7 @@ public class Door : MonoBehaviour
         if (locked) {
             m_Collider.enabled = true;
             if (up == true) {
-                animator.Play("Base Layer.Door", 0, -1);
+                animator.SetBool("OpenDoor", false);
                 up = false;
             }
             lockIndicatorColour.material.color = Color.red;

@@ -19,8 +19,15 @@ public class Door : MonoBehaviour
     private BoxCollider m_Collider;
     private BoxCollider m_Trigger;
 
+    public bool locked;
+    public GameObject lockIndicator;
+    private MeshRenderer lockIndicatorColour;
+    private bool up;
+
     private int CurrentWave = -1;
     private Animator animator;
+
+    public GameObject Player;
 
     private void Start() {
         BoxCollider[] boxColliders = GetComponents<BoxCollider>();
@@ -41,6 +48,8 @@ public class Door : MonoBehaviour
         m_Trigger.enabled = true;
         inWave = false;
         animator = GetComponent<Animator>();
+        lockIndicatorColour = lockIndicator.GetComponent<MeshRenderer>();
+        lockIndicatorColour.material.color = Color.green;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -48,8 +57,9 @@ public class Door : MonoBehaviour
             inWave = true;
             //m_Renderer.enabled = true;
             m_Trigger.enabled = false;
-            m_Collider.enabled = true;
-            animator.enabled = true;
+            //m_Collider.enabled = true;
+            //animator.Play("Base Layer.Door", 0, -1);
+            locked = true;
         }
     }
 
@@ -58,8 +68,8 @@ public class Door : MonoBehaviour
             if (GameManager.Instance.EnemiesLeft == 0) {
                 if (CurrentWave == waves.Length-1) {
                     //m_Renderer.enabled = false;
-                    m_Collider.enabled = false;
-                    animator.Play("Base Layer.DoorReverse", 0, -1);
+                    //m_Collider.enabled = false;
+                    locked = false;
                     inWave = false;
                 }
                 else {
@@ -69,6 +79,29 @@ public class Door : MonoBehaviour
                     }
                 }
             }
+        }
+        if (locked) {
+            m_Collider.enabled = true;
+            if (up == true) {
+                animator.Play("Base Layer.Door", 0, -1);
+                up = false;
+            }
+            lockIndicatorColour.material.color = Color.red;
+        }
+        else {
+            m_Collider.enabled = false;
+            float i = Vector3.Distance(transform.position, Player.transform.position);
+            if (!up && i < 10) {
+                //animator.Play("Base Layer.DoorReverse", 0, -1);
+                up = true;
+                animator.SetBool("OpenDoor", true);
+            }
+            else if (up && i > 10.1f) {
+                up = false;
+                //animator.Play("Base Layer.Door", 0, -1);
+                animator.SetBool("OpenDoor", false);
+            }
+            lockIndicatorColour.material.color = Color.green;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public Slider healthSlider;
     public GameObject deathScreen;
+    public GameObject firstButton;
 
     public float healingAmount = 5;
     public bool healing = true;
@@ -39,10 +41,14 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update() {
         if (health <= 0) {
-            deathScreen.SetActive(true);
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+            if (!Cursor.visible) {
+                deathScreen.SetActive(true);
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(firstButton);
+            }
         }
         if (health > maxHealth) {
             health = maxHealth;

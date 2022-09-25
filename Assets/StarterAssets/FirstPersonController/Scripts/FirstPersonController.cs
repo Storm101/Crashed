@@ -64,6 +64,8 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
+		private bool toggleSprint = false;
+
 	
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		private PlayerInput _playerInput;
@@ -155,7 +157,21 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = 0;
+
+			if (toggleSprint && !Input.GetButton("Keyboard input")) {
+				targetSpeed = SprintSpeed;
+			}
+			else {
+				targetSpeed = MoveSpeed;
+			}
+			if (Input.GetButton("Sprint")) {
+				targetSpeed = SprintSpeed;
+			}
+			else if (Input.GetButtonDown("Joystick Sprint")) {
+				toggleSprint = !toggleSprint;
+			}
+			
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 

@@ -41,7 +41,7 @@ public class EnemyShooting : MonoBehaviour {
         if (!currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
             if (Shoot)
-                weaponManager.Fire(bulletSpawn, arms, currentWeaponData, eyeSight, enemyBulletMat, false);
+                weaponManager.Fire(bulletSpawn, arms, currentWeaponData, eyeSight, enemyBulletMat, false, null);
         }
     }
 }

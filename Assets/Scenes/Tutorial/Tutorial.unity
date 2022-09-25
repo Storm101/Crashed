@@ -727,11 +727,11 @@ MonoBehaviour:
       bulletPrefab: {fileID: 1721327818372764580, guid: 0014aa2f3f71df842b4d9655ef5b1d84, type: 3}
       unlocked: 1
       fireMode: 1
-      damage: 6
+      damage: 4
       spreadRadius: 0.03
       bulletCount: 1
       bulletSpeed: 40
-      rateOfFire: 0.15
+      rateOfFire: 0.2
       recoilAmount: 0
       adsSpeed: 10
       adsScope: 1.5
@@ -1861,6 +1861,7 @@ MonoBehaviour:
   MinHeadBob: -0.5
   MaxHeadBob: 0.5
   HeadBobIntensity: 0.1
+  MouseYSum: 0
   weaponRotation: {fileID: 0}
 --- !u!82 &330390569
 AudioSource:
@@ -15710,6 +15711,7 @@ MonoBehaviour:
   currentWeaponType: 0
   playerBulletMat: {fileID: 2100000, guid: 95263ea5b8ec981409255b60d06d6c26, type: 2}
   Heat: {fileID: 1750777860}
+  cameraController: {fileID: 330390568}
 --- !u!114 &1126943282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61104,7 +61106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1834830473
 Transform:
   m_ObjectHideFlags: 0

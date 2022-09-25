@@ -29,6 +29,9 @@ public class Player_WeaponHandler : MonoBehaviour
     //Weapon heat slider variable
     public Slider Heat;
 
+    //Recoil stuff...
+    public CameraController cameraController;
+
     private void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
@@ -114,12 +117,12 @@ public class Player_WeaponHandler : MonoBehaviour
             if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
             {
                 if (Input.GetMouseButton(0) || Input.GetAxis("Shoot") > 0)
-                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true);
+                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
             }
             else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
             {
                 if (Input.GetMouseButtonDown(0) || Input.GetAxis("Shoot") > 0)
-                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true);
+                    weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
             }
 
             //Aim weapon

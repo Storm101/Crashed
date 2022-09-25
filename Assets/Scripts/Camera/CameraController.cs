@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     [TextArea]
     [SerializeField]
     [Tooltip("ReadMe")]
@@ -43,7 +42,7 @@ public class CameraController : MonoBehaviour
     private bool PlayAgain = false;
     private float StartPos;
     private float HeadBobTimer;
-    private float MouseYSum;
+    public float MouseYSum;
 
     private float yRotation;
 
@@ -79,8 +78,6 @@ public class CameraController : MonoBehaviour
         if (Cursor.lockState == CursorLockMode.Locked) {
             transform.parent.Rotate(Vector3.up, MouseX, Space.World);
             transform.Rotate(transform.parent.right, -MouseY, Space.World);
-
-
         }
 
         if ((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && GameManager.Instance.Grounded) {

@@ -38,10 +38,11 @@ public class PlayerHealth : MonoBehaviour
     public bool healing = true;
     private float tempHealth = 0;
     private float timer = 0;
+    public float healingTime = 5;
 
     private void Update() {
         if (health <= 0) {
-            if (!Cursor.visible) {
+            if (Time.timeScale != 0) {
                 deathScreen.SetActive(true);
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.Confined;
@@ -58,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
         if (health < maxHealth) {
             if (health >= tempHealth) {
                 timer += Time.deltaTime;
-                if (timer > 5 && healing) {
+                if (timer > healingTime && healing) {
                     health += Time.deltaTime * healingAmount;
                 }
             }

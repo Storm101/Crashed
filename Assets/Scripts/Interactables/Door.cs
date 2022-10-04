@@ -29,6 +29,9 @@ public class Door : MonoBehaviour
 
     public GameObject Player;
 
+    public Material unlockedMat;
+    public Material lockedMat;
+
     private void Start() {
         BoxCollider[] boxColliders = GetComponents<BoxCollider>();
         if (boxColliders.Length != 2) {
@@ -49,7 +52,7 @@ public class Door : MonoBehaviour
         inWave = false;
         animator = GetComponent<Animator>();
         lockIndicatorColour = lockIndicator.GetComponent<MeshRenderer>();
-        lockIndicatorColour.material.color = Color.green;
+        lockIndicatorColour.material = unlockedMat;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -86,7 +89,7 @@ public class Door : MonoBehaviour
                 animator.SetBool("OpenDoor", false);
                 up = false;
             }
-            lockIndicatorColour.material.color = Color.red;
+            lockIndicatorColour.material = lockedMat;
         }
         else {
             m_Collider.enabled = false;
@@ -101,7 +104,7 @@ public class Door : MonoBehaviour
                 //animator.Play("Base Layer.Door", 0, -1);
                 animator.SetBool("OpenDoor", false);
             }
-            lockIndicatorColour.material.color = Color.green;
+            lockIndicatorColour.material = unlockedMat;
         }
     }
 }

@@ -28,6 +28,7 @@ public class Player_WeaponHandler : MonoBehaviour
 
     //Weapon heat slider variable
     public Slider Heat;
+    public Slider HeatCrosshair;
 
     //Recoil stuff...
     public CameraController cameraController;
@@ -149,5 +150,7 @@ public class Player_WeaponHandler : MonoBehaviour
 
         //Adjust overheat slider to the current weapon's heat level
         Heat.value = currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown;
+
+        HeatCrosshair.value = 0.75f * (currentWeaponData.coolingCDTimer / currentWeaponData.coolingCooldown) + 0.25f;
     }
 }

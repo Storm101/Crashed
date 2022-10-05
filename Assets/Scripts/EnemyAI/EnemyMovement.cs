@@ -100,7 +100,7 @@ public class EnemyMovement : MonoBehaviour
         for (int i = 0; i < rayResolution; i++) {
             Debug.DrawRay(transform.position, transform.forward + (transform.right / (i - rayResolution/2))* 1.5f, color: Color.red, 0.1f);
             if (Physics.Raycast(transform.position, transform.forward + (transform.right/(i-rayResolution/2))*1.5f, out hit)) {
-                if (hit.collider.tag == "Player" && hit.distance < viewDistance) {
+                if (hit.collider.gameObject == player && hit.distance < viewDistance) {
                     shoot = true;
                     playerDetected = true;
                     yield return null;
@@ -108,7 +108,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
         if (Physics.Raycast(transform.position, transform.forward, out hit)) {
-            if (hit.collider.tag == "Player") {
+            if (hit.collider.gameObject == player) {
                 playerDetected = true;
                 shoot = true;
                 yield return null;

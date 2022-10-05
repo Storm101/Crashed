@@ -50,7 +50,7 @@ public class CollectionSystem : MonoBehaviour
         }
         if (Ship)
         {
-            if(PartsNeeded-PartsCollected == 0)
+            if(PartsNeeded == PartsCollected)
             {
                 Debug.Log("Ship has been repaired!");
             }

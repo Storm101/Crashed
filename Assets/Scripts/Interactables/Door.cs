@@ -32,6 +32,8 @@ public class Door : MonoBehaviour
     public Material unlockedMat;
     public Material lockedMat;
 
+    public float doorDistance;
+
     private void Start() {
         BoxCollider[] boxColliders = GetComponents<BoxCollider>();
         if (boxColliders.Length != 2) {
@@ -93,13 +95,13 @@ public class Door : MonoBehaviour
         }
         else {
             m_Collider.enabled = false;
-            float i = Vector3.Distance(transform.position, Player.transform.position);
-            if (!up && i < 10) {
+            float i = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(Player.transform.position.x, Player.transform.position.z));
+            if (!up && i < doorDistance) {
                 //animator.Play("Base Layer.DoorReverse", 0, -1);
                 up = true;
                 animator.SetBool("OpenDoor", true);
             }
-            else if (up && i > 10.1f) {
+            else if (up && i > doorDistance + 0.1f) {
                 up = false;
                 //animator.Play("Base Layer.Door", 0, -1);
                 animator.SetBool("OpenDoor", false);

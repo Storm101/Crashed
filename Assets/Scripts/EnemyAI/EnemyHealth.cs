@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMovement))]
 public class EnemyHealth : MonoBehaviour
 {
     public float health = 25;
@@ -22,7 +21,12 @@ public class EnemyHealth : MonoBehaviour
         }
 
         if (health < maxHealth) {
-            GameManager.Instance.groupDetection[GetComponent<EnemyMovement>().enemyGroup] = true;
+            if (GetComponent<EnemyMovement>() != null) {
+                GameManager.Instance.groupDetection[GetComponent<EnemyMovement>().enemyGroup] = true;
+            }
+            else if (GetComponent<EnemyMovementShip>() != null) {
+                GetComponent<EnemyMovementShip>().player = GetComponent<EnemyMovementShip>().realPlayer;
+            }
         }
     }
 }

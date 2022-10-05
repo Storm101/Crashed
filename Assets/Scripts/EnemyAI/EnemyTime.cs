@@ -9,6 +9,7 @@ public class EnemyTime : MonoBehaviour
     public float totalTime;
     public float enemyMult;
     public bool inWave;
+    private bool startwave = false;
     private bool SpawningEnemy;
 
     [Tooltip("What enemy prefabs to spawn")]
@@ -17,10 +18,12 @@ public class EnemyTime : MonoBehaviour
     [Tooltip("Where to spawn the enemies")]
     public GameObject[] enemySpawnPoints;
 
+    public Image ProgressFill;
     public Slider Progress;
 
     private void Update() {
         Progress.value = timer / totalTime;
+        ProgressFill.fillAmount = timer / totalTime;
     }
 
     public void LateUpdate() {
@@ -29,8 +32,10 @@ public class EnemyTime : MonoBehaviour
         if (inWave) {
             timer += Time.deltaTime;
 
-            if (GameManager.Instance.EnemiesLeft < (Mathf.Round((timer / totalTime) * 10)+1)*enemyMult && !SpawningEnemy) {
+            if (startwave == false) {
                 StartCoroutine(SpawnEnemy());
+                GetComponent<ShipHealth>().health = GetComponent<ShipHealth>().maxHealth;
+                startwave = true;
             }
 
             if (timer >= totalTime) { 
@@ -38,12 +43,17 @@ public class EnemyTime : MonoBehaviour
                 timer = 0;
             }
         }
+
+        else if (startwave) {
+            StopCoroutine(SpawnEnemy());
+            startwave = false;
+        }
     }
 
     IEnumerator SpawnEnemy() {
-        SpawningEnemy = true;
+        if (GameManager.Instance.EnemiesLeft < (Mathf.Round(timer / totalTime * enemyMult)) + 1) {
+            Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
+        }
         yield return new WaitForSeconds(2);
-        Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
-        SpawningEnemy = false;
     }
 }

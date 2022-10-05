@@ -31,12 +31,15 @@ public class Bullet : MonoBehaviour
             if (other.tag == "Player")
                 other.GetComponent<PlayerHealth>().health -= damage;
             //If the bullet hits an enemy, decrease their health by the bullet's damage
+            if (other.tag == "Ship")
+                other.GetComponent<ShipHealth>().health -= damage;
         }
         else
         {
             if (other.tag == "Enemy")
                 other.GetComponent<EnemyHealth>().health -= damage;
         }
+
 
         //Destroy bullet
         Destroy(gameObject);

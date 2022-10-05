@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Game Manager
   - Healing
+  - Ship
   layers:
   - Default
   - TransparentFX

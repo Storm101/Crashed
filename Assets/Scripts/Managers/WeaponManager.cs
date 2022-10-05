@@ -31,11 +31,13 @@ public class WeaponManager : MonoBehaviour
             //Raycast where the camera is looking
             RaycastHit hit;
             var ray = new Ray(eyeSight.position, eyeSight.forward);
+
             //Make the bullet look towards the raycast point if it exists, else make the bullet look forward towards the camera
-            if (Physics.Raycast(ray, out hit, ~ignoreLayer))
+            if (Physics.Raycast(ray, out hit, 1000f, ~ignoreLayer))
                 bullet.transform.LookAt(hit.point);
             else
                 bullet.transform.rotation = eyeSight.rotation;
+
 
             //Get the direction the bullet is facing + a random Vector3 made from the spread radius
             Vector3 dir = bullet.transform.forward + new Vector3(UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius), UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius), UnityEngine.Random.Range(-currentWeaponData.spreadRadius, currentWeaponData.spreadRadius));

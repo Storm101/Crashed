@@ -46,7 +46,7 @@ public class EnemyMovementShip : MonoBehaviour
     }
 
     private void Update() {
-        float distance = Vector2.Distance(new Vector2(realPlayer.transform.position.x, realPlayer.transform.position.z), new Vector2(transform.position.x, transform.position.z));
+        float distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), new Vector2(transform.position.x, transform.position.z));
 
         //Look at player
         var lookPos = player.transform.position - transform.position;
@@ -75,7 +75,7 @@ public class EnemyMovementShip : MonoBehaviour
             shooting.Shoot = true;
         }
 
-        if (distance < detectionRange) {
+        if (Vector2.Distance(new Vector2(realPlayer.transform.position.x, realPlayer.transform.position.z), new Vector2(transform.position.x, transform.position.z)) < detectionRange) {
             player = realPlayer;
         }
     }

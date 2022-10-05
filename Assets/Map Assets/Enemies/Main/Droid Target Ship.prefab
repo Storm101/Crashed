@@ -662,6 +662,7 @@ MonoBehaviour:
   averageStopDistance: 4
   stopDistanceVariation: 2
   arms: {fileID: 3699200539978108307}
+  detectionRange: 3
 --- !u!114 &-7945704412204263362
 MonoBehaviour:
   m_ObjectHideFlags: 0

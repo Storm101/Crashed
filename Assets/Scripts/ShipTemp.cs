@@ -9,12 +9,16 @@ public class ShipTemp : MonoBehaviour
     private EnemyTime enemy;
     private bool wave = false;
 
+    private void Awake() {
+        enemy = GetComponent<EnemyTime>();
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             if (other.GetComponent<CollectionSystem>().PartsCollected == 1 && other.GetComponent<CollectionSystem>().PartsNeeded == 1) {
                 enemy.inWave = true;
                 wave = true;
-                
+
                 //win.SetActive(true);
             }
         }

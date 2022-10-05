@@ -51,9 +51,11 @@ public class EnemyTime : MonoBehaviour
     }
 
     IEnumerator SpawnEnemy() {
-        if (GameManager.Instance.EnemiesLeft < (Mathf.Round(timer / totalTime * enemyMult)) + 1) {
-            Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
+        while (true) {
+            if (GameManager.Instance.EnemiesLeft < (Mathf.Round(timer / totalTime * enemyMult)) + 1) {
+                Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
+            }
+            yield return new WaitForSeconds(2);
         }
-        yield return new WaitForSeconds(2);
     }
 }

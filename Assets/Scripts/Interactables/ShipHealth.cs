@@ -12,6 +12,10 @@ public class ShipHealth : MonoBehaviour
     public Slider healthSlider;
     public RectTransform healthRect;
 
+    private GameObject[] EnemyList;
+
+
+
     private void Update() {
         healthSlider.value = health / maxHealth;
         healthRect.offsetMax = new Vector2(health / maxHealth * 15, 0);
@@ -19,7 +23,21 @@ public class ShipHealth : MonoBehaviour
         if (health <= 0) {
             GameObject deathParticle = Instantiate(deathParticles);
             deathParticle.transform.position = transform.position;
+            EnemyList = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject Enemy in EnemyList)
+            {
+                try
+                {
+                    Enemy.GetComponent<EnemyMovementShip>().player = GameObject.FindGameObjectWithTag("Player");
+                }
+                catch (System.Exception)
+                {
+
+                    throw;
+                }
+            }
             Object.Destroy(gameObject);
+            
         }
 
         if (health > maxHealth) {

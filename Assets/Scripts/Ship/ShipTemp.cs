@@ -6,11 +6,11 @@ public class ShipTemp : MonoBehaviour
 {
     public GameObject win;
 
-    private EnemyTime enemy;
+    private ShipRepairs enemy;
     private bool wave = false;
 
     private void Awake() {
-        enemy = GetComponent<EnemyTime>();
+        enemy = GetComponent<ShipRepairs>();
     }
 
     private void OnTriggerEnter(Collider other) {

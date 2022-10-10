@@ -15,6 +15,7 @@ public class CollectionSystem : MonoBehaviour
     public GameObject Ship;
     public int PartsCollected;
     public int PartsNeeded = 3;
+    public int partsHolding;
 
     void OnTriggerEnter(Collider col)
     {
@@ -26,6 +27,7 @@ public class CollectionSystem : MonoBehaviour
                 Part1 = null;
                 Destroy(col.gameObject);
                 PartsCollected++;
+                partsHolding++;
             }
         }
         if (Part2)
@@ -36,6 +38,7 @@ public class CollectionSystem : MonoBehaviour
                 Part2 = null;
                 Destroy(col.gameObject);
                 PartsCollected++;
+                partsHolding++;
             }
         }
         if (Part3)
@@ -46,11 +49,13 @@ public class CollectionSystem : MonoBehaviour
                 Part3 = null;
                 Destroy(col.gameObject);
                 PartsCollected++;
+                partsHolding++;
             }
         }
         if (Ship)
         {
-            if(PartsNeeded == PartsCollected)
+
+            /*if(PartsNeeded == PartsCollected)
             {
                 Debug.Log("Ship has been repaired!");
             }
@@ -58,7 +63,7 @@ public class CollectionSystem : MonoBehaviour
             {
                 PartsNeeded = PartsNeeded - PartsCollected;
                 PartsCollected = 0;
-            }
+            }*/
         }
     }
 }

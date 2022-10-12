@@ -12,15 +12,19 @@ public class ShipHealth : MonoBehaviour
     public Slider healthSlider;
     public RectTransform healthRect;
 
+    public Canvas healthCanvas;
+
     private GameObject[] EnemyList;
 
-
+    public bool healthVisible = false;
 
     private void Update() {
+
+
         healthSlider.value = health / maxHealth;
         healthRect.offsetMax = new Vector2(health / maxHealth * 15, 0);
 
-        if (health <= 0) {
+        if (health <= 0 && healthVisible) {
             GameObject deathParticle = Instantiate(deathParticles);
             deathParticle.transform.position = transform.position;
             EnemyList = GameObject.FindGameObjectsWithTag("Enemy");
@@ -43,5 +47,7 @@ public class ShipHealth : MonoBehaviour
         if (health > maxHealth) {
             health = maxHealth;
         }
+
+        healthCanvas.enabled = healthVisible;
     }
 }

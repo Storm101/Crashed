@@ -43,10 +43,12 @@ public class EnemyMovementShip : MonoBehaviour
         shooting = GetComponent<EnemyShooting>();
        
         realPlayer = GameObject.FindGameObjectWithTag("Player");
+
+        StartCoroutine(setDestination());
     }
 
     private void Update() {
-        float distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), new Vector2(transform.position.x, transform.position.z));
+        
 
         //Look at player
         var lookPos = player.transform.position - transform.position;
@@ -55,21 +57,6 @@ public class EnemyMovementShip : MonoBehaviour
         arms.transform.LookAt(player.transform.position + Vector3.up);
         arms.transform.rotation = Quaternion.Euler(arms.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, arms.transform.rotation.eulerAngles.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnDampening);
-
-        //if far from player, go towards player
-        if (distance > stopDistance) {
-            agent.isStopped = false;
-            agent.destination = player.transform.position;
-        }
-
-        else if (distance < stopDistance - 1) {
-            agent.isStopped = false;
-            agent.destination = transform.position - (transform.forward * 5);
-        }
-
-        else {
-            agent.isStopped = true;
-        }
 
         if (shoot) {
             shooting.Shoot = true;
@@ -86,6 +73,31 @@ public class EnemyMovementShip : MonoBehaviour
             if (hit.collider.gameObject == player) {
                 shoot = true;
             }
+        }
+    }
+
+    private IEnumerator setDestination() {
+        while (true) {
+            float distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), new Vector2(transform.position.x, transform.position.z));
+
+            if (distance > stopDistance) {
+                agent.isStopped = false;
+                agent.SetDestination(player.transform.position);
+            }
+
+            else if (distance < stopDistance - 1) {
+                agent.isStopped = false;
+                agent.SetDestination(transform.position - (transform.forward * 5));
+            }
+
+            else {
+                agent.isStopped = true;
+                Debug.Log("Stopped");
+            }
+
+            Debug.Log("set destination");
+            
+            yield return new WaitForSeconds(1);
         }
     }
 }

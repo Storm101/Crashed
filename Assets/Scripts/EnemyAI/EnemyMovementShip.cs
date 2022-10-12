@@ -48,7 +48,7 @@ public class EnemyMovementShip : MonoBehaviour
     }
 
     private void Update() {
-        
+        GameManager.Instance.ShipEnemiesLeft++;
 
         //Look at player
         var lookPos = player.transform.position - transform.position;

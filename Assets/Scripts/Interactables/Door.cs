@@ -19,6 +19,8 @@ public class Door : MonoBehaviour
 
     public float doorDistance;
 
+    private GameObject[] enemyList;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -40,6 +42,16 @@ public class Door : MonoBehaviour
         else
         {
             float i = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(Player.transform.position.x, Player.transform.position.z));
+
+            enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (GameObject enemy in enemyList)
+            {
+                float enemyDist = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(enemy.transform.position.x, enemy.transform.position.z));
+
+                if (enemyDist < i)
+                    i = enemyDist;
+            }
             if (!up && i < doorDistance)
             {
                 //animator.Play("Base Layer.DoorReverse", 0, -1);

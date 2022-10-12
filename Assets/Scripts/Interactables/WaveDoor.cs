@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.AI;
 
 public class WaveDoor : MonoBehaviour
 {
@@ -88,6 +89,7 @@ public class WaveDoor : MonoBehaviour
             if (up == true) {
                 animator.SetBool("OpenDoor", false);
                 up = false;
+
             }
             lockIndicatorColour.material = lockedMat;
         }

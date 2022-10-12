@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1;
     }
-    
+
     public bool Grounded = false;
 
     public bool[] groupDetection;
@@ -47,12 +48,26 @@ public class GameManager : MonoBehaviour
 
     public bool alertActive = false;
 
-    private void Update() {
-        if (gameProgression == 5) {
-            //win
-        }
+    public bool shipRepaired;
 
+    private void Update()
+    {
         //Used in waves
         EnemiesLeft = 0;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitToDesktop()
+    {
+        Application.Quit();
     }
 }

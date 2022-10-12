@@ -92,10 +92,7 @@ public class EnemyMovementShip : MonoBehaviour
 
             else {
                 agent.isStopped = true;
-                Debug.Log("Stopped");
             }
-
-            Debug.Log("set destination");
             
             yield return new WaitForSeconds(1);
         }

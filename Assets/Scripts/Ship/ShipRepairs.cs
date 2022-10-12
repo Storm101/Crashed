@@ -39,7 +39,6 @@ public class ShipRepairs : MonoBehaviour
     private void Update() {
         //Set the progress bar's timer to the timer divided by the repairTime
         Progress.value = timer / currentRepairTimeTotal;
-        
     }
 
     public void LateUpdate() {
@@ -51,7 +50,7 @@ public class ShipRepairs : MonoBehaviour
 
             if (waveStarted == false) {
                 StartCoroutine(SpawnEnemy());
-                GetComponent<ShipHealth>().health = GetComponent<ShipHealth>().maxHealth;
+                transform.GetChild(0).GetComponent<ShipHealth>().health = transform.GetChild(0).GetComponent<ShipHealth>().maxHealth;
                 waveStarted = true;
             }
 
@@ -63,6 +62,7 @@ public class ShipRepairs : MonoBehaviour
                 if (totalRepairTime <= 0 && !gameManager.alertActive)
                 {
                     gameManager.GetComponent<AlertBox>().AlertPopup("Ship successfully repaired! \n Press \"e\" on the ship to take off!");
+                    gameManager.shipRepaired = true;
                 }
             }
         }

@@ -36,7 +36,7 @@ public class ShipRepairs : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
 
-        health = GetComponent<ShipHealth>();
+        health = transform.GetChild(0).GetComponent<ShipHealth>();
     }
 
     private void Update() {
@@ -54,6 +54,7 @@ public class ShipRepairs : MonoBehaviour
 
             if (waveStarted == false) {
                 StartCoroutine(SpawnEnemy());
+                transform.GetChild(0).GetComponent<ShipHealth>().health = transform.GetChild(0).GetComponent<ShipHealth>().maxHealth;
                 health.health = health.maxHealth;
                 health.healthVisible = true;
                 waveStarted = true;
@@ -67,6 +68,7 @@ public class ShipRepairs : MonoBehaviour
                 if (totalRepairTime <= 0 && !gameManager.alertActive)
                 {
                     gameManager.GetComponent<AlertBox>().AlertPopup("Ship successfully repaired! \n Press \"e\" on the ship to take off!");
+                    gameManager.shipRepaired = true;
                 }
             }
         }

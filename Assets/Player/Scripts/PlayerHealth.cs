@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class PlayerHealth : MonoBehaviour
 {
     private static PlayerHealth instance = null;
+
     public static PlayerHealth Instance {
         get {
             if (instance == null) {
@@ -28,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public Text deathMessage;
     public float health;
     public float maxHealth;
     public Slider healthSlider;
@@ -42,14 +44,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update() {
         if (health <= 0) {
-            if (Time.timeScale != 0) {
-                deathScreen.SetActive(true);
-                Time.timeScale = 0;
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true;
-                EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(firstButton);
-            }
+            death("You died");
         }
         if (health > maxHealth) {
             health = maxHealth;
@@ -67,6 +62,18 @@ public class PlayerHealth : MonoBehaviour
                 timer = 0;
             }
             tempHealth = health;
+        }
+    }
+
+    public void death(string str) {
+        if (Time.timeScale != 0) {
+            deathScreen.SetActive(true);
+            Time.timeScale = 0;
+            deathMessage.text = str;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstButton);
         }
     }
 

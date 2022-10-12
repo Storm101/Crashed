@@ -41,7 +41,7 @@ public class ShipHealth : MonoBehaviour
                 }
             }
             Object.Destroy(gameObject);
-            
+            PlayerHealth.Instance.death("The ship was destroyed");
         }
 
         if (health > maxHealth) {

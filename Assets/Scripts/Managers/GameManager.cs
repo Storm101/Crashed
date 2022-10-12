@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     //5 is win
 
     public int EnemiesLeft;
+    public int ShipEnemiesLeft;
 
     public bool alertActive = false;
 
@@ -54,5 +55,6 @@ public class GameManager : MonoBehaviour
 
         //Used in waves
         EnemiesLeft = 0;
+        ShipEnemiesLeft = 0;
     }
 }

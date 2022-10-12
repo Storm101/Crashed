@@ -97,7 +97,7 @@ public class ShipRepairs : MonoBehaviour
 
     IEnumerator SpawnEnemy() {
         while (true) {
-            if (GameManager.Instance.EnemiesLeft < Mathf.Round(timer / (currentRepairTimeTotal * 60) * enemyMult) + 1) {
+            if (GameManager.Instance.ShipEnemiesLeft < Mathf.Round(timer / (currentRepairTimeTotal * 60) * enemyMult) + 1) {
                 Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
             }
             yield return new WaitForSeconds(2);

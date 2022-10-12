@@ -49,7 +49,6 @@ public class Door : MonoBehaviour
         }
         m_Renderer = GetComponent<MeshRenderer>();
         //m_Renderer.enabled = false;
-        m_Collider.enabled = false;
         m_Trigger.enabled = true;
         inWave = false;
         animator = GetComponent<Animator>();
@@ -62,7 +61,6 @@ public class Door : MonoBehaviour
             inWave = true;
             //m_Renderer.enabled = true;
             m_Trigger.enabled = false;
-            //m_Collider.enabled = true;
             //animator.Play("Base Layer.Door", 0, -1);
             locked = true;
         }
@@ -73,7 +71,6 @@ public class Door : MonoBehaviour
             if (GameManager.Instance.EnemiesLeft == 0) {
                 if (CurrentWave == waves.Length-1) {
                     //m_Renderer.enabled = false;
-                    //m_Collider.enabled = false;
                     locked = false;
                     inWave = false;
                 }
@@ -86,7 +83,6 @@ public class Door : MonoBehaviour
             }
         }
         if (locked) {
-            m_Collider.enabled = true;
             if (up == true) {
                 animator.SetBool("OpenDoor", false);
                 up = false;
@@ -94,7 +90,6 @@ public class Door : MonoBehaviour
             lockIndicatorColour.material = lockedMat;
         }
         else {
-            m_Collider.enabled = false;
             float i = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(Player.transform.position.x, Player.transform.position.z));
             if (!up && i < doorDistance) {
                 //animator.Play("Base Layer.DoorReverse", 0, -1);

@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     public int EnemiesLeft;
 
+    public bool alertActive = false;
+
     private void Update() {
         if (gameProgression == 5) {
             //win

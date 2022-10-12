@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ShipRepairs : MonoBehaviour
 {
+    //Manager variables
+    private GameManager gameManager;
+
     //Timer variables
     private float timer;
     public float totalRepairTime;
@@ -27,6 +30,11 @@ public class ShipRepairs : MonoBehaviour
     //Ship variables
     public Image ProgressFill;
     public Slider Progress;
+
+    private void Awake()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
+    }
 
     private void Update() {
         //Set the progress bar's timer to the timer divided by the repairTime
@@ -51,6 +59,11 @@ public class ShipRepairs : MonoBehaviour
             if (timer >= currentRepairTimeTotal * 60) { 
                 inWave = false;
                 timer = 0;
+
+                if (totalRepairTime <= 0 && !gameManager.alertActive)
+                {
+                    gameManager.GetComponent<AlertBox>().AlertPopup("Ship successfully repaired! \n Press \"e\" on the ship to take off!");
+                }
             }
         }
         else if (waveStarted) {

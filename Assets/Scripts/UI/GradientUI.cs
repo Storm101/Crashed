@@ -17,7 +17,7 @@ public class GradientUI : MonoBehaviour {
     }
 
     private void Update() {
-        //_image.color = _gradient.Evaluate(_slider.value);
+        _image.color = _gradient.Evaluate(_slider.value);
     }
 
 }

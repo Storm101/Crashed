@@ -36,7 +36,7 @@ public class ShipRepairs : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
 
-        health = GetComponent<ShipHealth>();
+        health = transform.GetChild(0).GetComponent<ShipHealth>();
     }
 
     private void Update() {

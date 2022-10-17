@@ -41,7 +41,7 @@ public class ShipRepairs : MonoBehaviour
 
     private void Update() {
         //Set the progress bar's timer to the timer divided by the repairTime
-        Progress.value = timer / currentRepairTimeTotal;
+        Progress.value = timer;
         
     }
 

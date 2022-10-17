@@ -56,6 +56,9 @@ public class GameManager : MonoBehaviour
         //Used in waves
         EnemiesLeft = 0;
         ShipEnemiesLeft = 0;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     public void Restart()

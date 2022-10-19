@@ -6,64 +6,72 @@ using UnityEngine.UI;
 
 public class CollectionSystem : MonoBehaviour
 {
-    public GameObject Part1;
-    public GameObject Part2;
-    public GameObject Part3;
-    public Toggle Toggle1;
-    public Toggle Toggle2;
-    public Toggle Toggle3;
+    private GameManager gameManager;
+
+    public GameObject engine;
+    public GameObject cockpit;
+    public GameObject hyperdrive;
+    public Text engineText;
+    public Text cockpitText;
+    public Text hyperdriveText;
+
     public GameObject Ship;
     public int PartsCollected;
     public int PartsNeeded = 3;
     public int partsHolding;
 
+    public List<GameObject> collectedParts;
+
+    private void Awake()
+    {
+        collectedParts = new List<GameObject>();
+
+        gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
+    }
+
     void OnTriggerEnter(Collider col)
     {
-        if(Part1)
+        if(engine)
         {
-            if (col.gameObject.name == Part1.name)
+            if (col.gameObject.name == engine.name)
             {
-                Toggle1.isOn = true;
-                Part1 = null;
+                collectedParts.Add(engine);
+                engineText.text = "Install the engine module";
+                engine = null;
                 Destroy(col.gameObject);
                 PartsCollected++;
                 partsHolding++;
-            }
-        }
-        if (Part2)
-        {
-            if (col.gameObject.name == Part2.name)
-            {
-                Toggle2.isOn = true;
-                Part2 = null;
-                Destroy(col.gameObject);
-                PartsCollected++;
-                partsHolding++;
-            }
-        }
-        if (Part3)
-        {
-            if (col.gameObject.name == Part3.name)
-            {
-                Toggle3.isOn = true;
-                Part3 = null;
-                Destroy(col.gameObject);
-                PartsCollected++;
-                partsHolding++;
-            }
-        }
-        if (Ship)
-        {
 
-            /*if(PartsNeeded == PartsCollected)
-            {
-                Debug.Log("Ship has been repaired!");
+                gameManager.GetComponent<AlertBox>().AlertPopup(col.GetComponent<ModuleInfo>().text, col.GetComponent<ModuleInfo>().stayActive, col.GetComponent<ModuleInfo>().alertActiveTime);
             }
-            else
+        }
+        if (cockpit)
+        {
+            if (col.gameObject.name == cockpit.name)
             {
-                PartsNeeded = PartsNeeded - PartsCollected;
-                PartsCollected = 0;
-            }*/
+                collectedParts.Add(cockpit);
+                cockpitText.text = "Install the cockpit module";
+                cockpit = null;
+                Destroy(col.gameObject);
+                PartsCollected++;
+                partsHolding++;
+
+                gameManager.GetComponent<AlertBox>().AlertPopup(col.GetComponent<ModuleInfo>().text, col.GetComponent<ModuleInfo>().stayActive, col.GetComponent<ModuleInfo>().alertActiveTime);
+            }
+        }
+        if (hyperdrive)
+        {
+            if (col.gameObject.name == hyperdrive.name)
+            {
+                collectedParts.Add(hyperdrive);
+                hyperdriveText.text = "Install the hyperdrive module";
+                hyperdrive = null;
+                Destroy(col.gameObject);
+                PartsCollected++;
+                partsHolding++;
+
+                gameManager.GetComponent<AlertBox>().AlertPopup(col.GetComponent<ModuleInfo>().text, col.GetComponent<ModuleInfo>().stayActive, col.GetComponent<ModuleInfo>().alertActiveTime);
+            }
         }
     }
 }

@@ -33,11 +33,15 @@ public class ShipRepairs : MonoBehaviour
     public Text timeText;
     public Slider Progress;
 
+    private List<GameObject> modulesRepaired;
+
     private void Awake()
     {
         gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
 
         health = transform.GetChild(0).GetComponent<ShipHealth>();
+
+        modulesRepaired = new List<GameObject>();
     }
 
     private void Update() {
@@ -69,9 +73,15 @@ public class ShipRepairs : MonoBehaviour
                 inWave = false;
                 timer = 0;
 
+                foreach (GameObject moduleCheck in modulesRepaired)
+                {
+                    moduleCheck.GetComponent<Toggle>().isOn = true;
+                }
+                modulesRepaired.Clear();
+
                 if (totalRepairTime <= 0 && !gameManager.alertActive)
                 {
-                    gameManager.GetComponent<AlertBox>().AlertPopup("Ship successfully repaired! \n Press \"e\" on the ship to take off!");
+                    gameManager.GetComponent<AlertBox>().AlertPopup("Ship successfully repaired! \n Press \"e\" on the ship to take off!", true, 5);
                     gameManager.shipRepaired = true;
                 }
             }
@@ -95,6 +105,8 @@ public class ShipRepairs : MonoBehaviour
                 currentRepairTimeTotal = other.GetComponent<CollectionSystem>().partsHolding;
 
                 Progress.maxValue = currentRepairTimeTotal * 60;
+
+                modulesRepaired = other.GetComponent<CollectionSystem>().collectedParts;
 
                 other.GetComponent<CollectionSystem>().partsHolding = 0;
             }

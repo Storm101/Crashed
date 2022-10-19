@@ -28,38 +28,45 @@ public class Bullet : MonoBehaviour
     }
 
     //If the bullet hits an object, destroy the bullet
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnCollisionEnter(Collision other) {
+        ContactPoint contact = other.contacts[0];
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
+
         if (isEnemyBullet)
         {
             //If the bullet hits the player, decrease their health by the bullet's damage
-            if (other.tag == "Player")
-                other.GetComponent<PlayerHealth>().health -= damage;
+            if (other.gameObject.tag == "Player")
+                other.gameObject.GetComponent<PlayerHealth>().health -= damage;
             //If the bullet hits an enemy, decrease their health by the bullet's damage
-            else if (other.tag == "Ship") {
-                other.GetComponent<ShipHealth>().health -= damage;
+            else if (other.gameObject.tag == "Ship") {
+                other.gameObject.GetComponent<ShipHealth>().health -= damage;
                 GameObject hitParticle = Instantiate(HitShip);
                 hitParticle.transform.position = transform.position;
+                hitParticle.transform.rotation = rotation;
             }
             else {
                 GameObject hitParticle = Instantiate(HitWall);
                 hitParticle.transform.position = transform.position;
+                hitParticle.transform.rotation = rotation;
             }
         }
         else
         {
-            if (other.tag == "Enemy") {
-                other.GetComponent<EnemyHealth>().health -= damage;
+            if (other.gameObject.tag == "Enemy") {
+                other.gameObject.GetComponent<EnemyHealth>().health -= damage;
                 GameObject hitParticle = Instantiate(HitEnemy);
                 hitParticle.transform.position = transform.position;
+                hitParticle.transform.rotation = rotation;
             }
-            else if (other.tag == "Ship") {
+            else if (other.gameObject.tag == "Ship") {
                 GameObject hitParticle = Instantiate(HitShip);
                 hitParticle.transform.position = transform.position;
+                hitParticle.transform.rotation = rotation;
             }
             else {
                 GameObject hitParticle = Instantiate(HitWall);
                 hitParticle.transform.position = transform.position;
+                hitParticle.transform.rotation = rotation;
             }
         }
 

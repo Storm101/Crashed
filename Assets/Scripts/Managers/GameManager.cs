@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     public bool[] groupDetection;
 
-    private int gameProgression = 0;
+    //private int gameProgression = 0;
     //1, 2, 3 are items
     //4 is boss
     //5 is win

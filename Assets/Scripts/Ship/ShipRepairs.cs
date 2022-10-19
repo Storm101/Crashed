@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ShipRepairs : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class ShipRepairs : MonoBehaviour
     public GameObject[] enemySpawnPoints;
 
     //Ship variables
-    public Image ProgressFill;
+    public Text timeText;
     public Slider Progress;
 
     private void Awake()
@@ -41,8 +42,12 @@ public class ShipRepairs : MonoBehaviour
 
     private void Update() {
         //Set the progress bar's timer to the timer divided by the repairTime
+        TimeSpan t = TimeSpan.FromSeconds(currentRepairTimeTotal * 60 - timer);
+        timeText.text = string.Format("{0:D2}:{1:D2}",
+                        t.Minutes,
+                        t.Seconds);
+
         Progress.value = timer;
-        
     }
 
     public void LateUpdate() {
@@ -99,7 +104,7 @@ public class ShipRepairs : MonoBehaviour
     IEnumerator SpawnEnemy() {
         while (true) {
             if (GameManager.Instance.ShipEnemiesLeft < Mathf.Round(timer / (currentRepairTimeTotal * 60) * enemyMult) + 1) {
-                Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
+                Instantiate(enemyPrefab, enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length - 1)].transform.position, enemySpawnPoints[0].transform.rotation);
             }
             yield return new WaitForSeconds(2);
         }

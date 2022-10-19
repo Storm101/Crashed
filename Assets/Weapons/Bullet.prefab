@@ -129,6 +129,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileLife: 5
   damage: 0
+  isEnemyBullet: 0
+  HitWall: {fileID: 6901700079590914296, guid: 34fa15873c5e9d24498c045ca9ed0682, type: 3}
+  HitEnemy: {fileID: 5571924051268193269, guid: 95e64daa23391074a91d0083b0ea374f, type: 3}
+  HitShip: {fileID: 4326996688248646562, guid: 467d0545fa7e1e74d814cc7627739a0f, type: 3}
 --- !u!108 &8191597236310001076
 Light:
   m_ObjectHideFlags: 0

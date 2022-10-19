@@ -14,6 +14,11 @@ public class Bullet : MonoBehaviour
 
     public bool isEnemyBullet;
 
+
+    public GameObject HitWall;
+    public GameObject HitEnemy;
+    public GameObject HitShip;
+
     //Wait until the timer runs out, then destroy the bullet
     private void Update()
     {
@@ -31,13 +36,31 @@ public class Bullet : MonoBehaviour
             if (other.tag == "Player")
                 other.GetComponent<PlayerHealth>().health -= damage;
             //If the bullet hits an enemy, decrease their health by the bullet's damage
-            if (other.tag == "Ship")
+            else if (other.tag == "Ship") {
                 other.GetComponent<ShipHealth>().health -= damage;
+                GameObject hitParticle = Instantiate(HitShip);
+                hitParticle.transform.position = transform.position;
+            }
+            else {
+                GameObject hitParticle = Instantiate(HitWall);
+                hitParticle.transform.position = transform.position;
+            }
         }
         else
         {
-            if (other.tag == "Enemy")
+            if (other.tag == "Enemy") {
                 other.GetComponent<EnemyHealth>().health -= damage;
+                GameObject hitParticle = Instantiate(HitEnemy);
+                hitParticle.transform.position = transform.position;
+            }
+            else if (other.tag == "Ship") {
+                GameObject hitParticle = Instantiate(HitShip);
+                hitParticle.transform.position = transform.position;
+            }
+            else {
+                GameObject hitParticle = Instantiate(HitWall);
+                hitParticle.transform.position = transform.position;
+            }
         }
 
 

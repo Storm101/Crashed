@@ -64,11 +64,15 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(1);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void QuitToMainMenu()
     {
         SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     public void QuitToDesktop()

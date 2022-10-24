@@ -75,7 +75,8 @@ public class ShipRepairs : MonoBehaviour
 
                 foreach (GameObject moduleCheck in modulesRepaired)
                 {
-                    moduleCheck.GetComponent<Toggle>().isOn = true;
+                    if (moduleCheck != null)
+                        moduleCheck.GetComponent<Toggle>().isOn = true;
                 }
                 modulesRepaired.Clear();
 

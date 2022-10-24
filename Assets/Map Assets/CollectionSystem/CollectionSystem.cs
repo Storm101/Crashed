@@ -15,6 +15,10 @@ public class CollectionSystem : MonoBehaviour
     public Text cockpitText;
     public Text hyperdriveText;
 
+    public GameObject engineCheck;
+    public GameObject cockpitCheck;
+    public GameObject hyperdriveCheck;
+
     public GameObject Ship;
     public int PartsCollected;
     public int PartsNeeded = 3;
@@ -35,7 +39,7 @@ public class CollectionSystem : MonoBehaviour
         {
             if (col.gameObject.name == engine.name)
             {
-                collectedParts.Add(engine);
+                collectedParts.Add(engineCheck);
                 engineText.text = "Install the engine module";
                 engine = null;
                 Destroy(col.gameObject);
@@ -49,7 +53,7 @@ public class CollectionSystem : MonoBehaviour
         {
             if (col.gameObject.name == cockpit.name)
             {
-                collectedParts.Add(cockpit);
+                collectedParts.Add(cockpitCheck);
                 cockpitText.text = "Install the cockpit module";
                 cockpit = null;
                 Destroy(col.gameObject);
@@ -63,7 +67,7 @@ public class CollectionSystem : MonoBehaviour
         {
             if (col.gameObject.name == hyperdrive.name)
             {
-                collectedParts.Add(hyperdrive);
+                collectedParts.Add(hyperdriveCheck);
                 hyperdriveText.text = "Install the hyperdrive module";
                 hyperdrive = null;
                 Destroy(col.gameObject);

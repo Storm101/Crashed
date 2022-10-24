@@ -137,14 +137,23 @@ public class Player_WeaponHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxis("DPadHorizontal") < 0)
         {
             weaponManager.SwapWeapon(currentWeapon, 1, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
+            currentWeapon.layer = 11;
+            foreach (Transform child in currentWeapon.transform)
+                child.gameObject.layer = 11;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetAxis("DPadVertical") > 0)
         {
             weaponManager.SwapWeapon(currentWeapon, 2, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
+            currentWeapon.layer = 11;
+            foreach (Transform child in currentWeapon.transform)
+                child.gameObject.layer = 11;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetAxis("DPadHorizontal") > 0)
         {
             weaponManager.SwapWeapon(currentWeapon, 3, weaponList, weaponIndex, weaponPosition, currentWeaponData, bulletSpawn, gameObject.GetComponent<Player_WeaponHandler>(), currentWeaponType);
+            currentWeapon.layer = 11;
+            foreach (Transform child in currentWeapon.transform)
+                child.gameObject.layer = 11;
         }
 
 

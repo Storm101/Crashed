@@ -19,6 +19,17 @@ public class Bullet : MonoBehaviour
     public GameObject HitEnemy;
     public GameObject HitShip;
 
+    [SerializeField]
+    private AudioClip[] wallHitNoises;
+    [SerializeField]
+    private AudioClip[] playerHitNoises;
+    [SerializeField]
+    private AudioClip[] enemyHitNoises;
+    [SerializeField]
+    private AudioClip[] shipHitNoises;
+    [SerializeField]
+    private AudioSource audioSource;
+
     //Wait until the timer runs out, then destroy the bullet
     private void Update()
     {
@@ -32,22 +43,34 @@ public class Bullet : MonoBehaviour
         ContactPoint contact = other.contacts[0];
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
 
+        GameObject audio = new GameObject("SFX", typeof(AudioSource));
+        audio.GetComponent<AudioSource>().outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
+
         if (isEnemyBullet)
         {
             //If the bullet hits the player, decrease their health by the bullet's damage
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "Player") {
                 other.gameObject.GetComponent<PlayerHealth>().health -= damage;
+
+                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, playerHitNoises.Length)];
+            }
+
             //If the bullet hits an enemy, decrease their health by the bullet's damage
             else if (other.gameObject.tag == "Ship") {
                 other.gameObject.GetComponent<ShipHealth>().health -= damage;
                 GameObject hitParticle = Instantiate(HitShip);
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
+
+                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, shipHitNoises.Length)];
             }
+
             else {
                 GameObject hitParticle = Instantiate(HitWall);
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
+
+                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, wallHitNoises.Length)];
             }
         }
         else
@@ -57,21 +80,32 @@ public class Bullet : MonoBehaviour
                 GameObject hitParticle = Instantiate(HitEnemy);
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
+
+                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, enemyHitNoises.Length)];
             }
+
             else if (other.gameObject.tag == "Ship") {
                 GameObject hitParticle = Instantiate(HitShip);
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
+
+                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, shipHitNoises.Length)];
             }
+
             else {
                 GameObject hitParticle = Instantiate(HitWall);
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
+
+                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, wallHitNoises.Length)];
             }
         }
 
+        audio.GetComponent<AudioSource>().Play();
 
         //Destroy bullet
+        Debug.Log(audio.GetComponent<AudioSource>().clip.length);
+        Destroy(audio, audio.GetComponent<AudioSource>().clip.length);
         Destroy(gameObject);
     }
 }

@@ -33,6 +33,13 @@ public class Player_WeaponHandler : MonoBehaviour
     //Recoil stuff...
     public CameraController cameraController;
 
+    //Audio
+    [SerializeField]
+    [Tooltip("The audio to play when the player has taken a shot")]
+    private AudioClip[] audioClips;
+    [SerializeField]
+    private AudioSource audioSource;
+
     private void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<WeaponManager>();
@@ -117,13 +124,19 @@ public class Player_WeaponHandler : MonoBehaviour
             //Fire weapon
             if (currentWeaponData.fireMode == 1 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
             {
-                if (Input.GetMouseButton(0) || Input.GetAxis("Shoot") > 0)
+                if (Input.GetMouseButton(0) || Input.GetAxis("Shoot") > 0) {
                     weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
+                    audioSource.clip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+                    audioSource.Play();
+                }
             }
             else if (currentWeaponData.fireMode == 2 && !currentWeaponData.isCooling && !currentWeaponData.hasShot && Time.timeScale != 0)
             {
-                if (Input.GetMouseButtonDown(0) || Input.GetAxis("Shoot") > 0)
+                if (Input.GetMouseButtonDown(0) || Input.GetAxis("Shoot") > 0) {
                     weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
+                    audioSource.clip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+                    audioSource.Play();
+                }
             }
 
             //Aim weapon

@@ -697,6 +697,8 @@ MonoBehaviour:
   health: 25
   maxHealth: 25
   deathParticles: {fileID: 5060687414257359992, guid: cc0e5006b30d42c489d079281b717016, type: 3}
+  DeathNoises:
+  - {fileID: 8300000, guid: e4b11b969ec1ce4478a50f77252f0ad8, type: 3}
 --- !u!114 &3980642807017355684
 MonoBehaviour:
   m_ObjectHideFlags: 0

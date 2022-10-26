@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour
             if (other.gameObject.tag == "Player") {
                 other.gameObject.GetComponent<PlayerHealth>().health -= damage;
 
-                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, playerHitNoises.Length)];
+                audio.GetComponent<AudioSource>().clip = playerHitNoises[Random.Range(0, playerHitNoises.Length)];
             }
 
             //If the bullet hits an enemy, decrease their health by the bullet's damage
@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
 
-                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, shipHitNoises.Length)];
+                audio.GetComponent<AudioSource>().clip = shipHitNoises[Random.Range(0, shipHitNoises.Length)];
             }
 
             else {
@@ -81,7 +81,7 @@ public class Bullet : MonoBehaviour
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
 
-                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, enemyHitNoises.Length)];
+                audio.GetComponent<AudioSource>().clip = enemyHitNoises[Random.Range(0, enemyHitNoises.Length)];
             }
 
             else if (other.gameObject.tag == "Ship") {
@@ -89,7 +89,7 @@ public class Bullet : MonoBehaviour
                 hitParticle.transform.position = transform.position;
                 hitParticle.transform.rotation = rotation;
 
-                audio.GetComponent<AudioSource>().clip = wallHitNoises[Random.Range(0, shipHitNoises.Length)];
+                audio.GetComponent<AudioSource>().clip = shipHitNoises[Random.Range(0, shipHitNoises.Length)];
             }
 
             else {
@@ -104,7 +104,6 @@ public class Bullet : MonoBehaviour
         audio.GetComponent<AudioSource>().Play();
 
         //Destroy bullet
-        Debug.Log(audio.GetComponent<AudioSource>().clip.length);
         Destroy(audio, audio.GetComponent<AudioSource>().clip.length);
         Destroy(gameObject);
     }

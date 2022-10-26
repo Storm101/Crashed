@@ -1203,6 +1203,8 @@ MonoBehaviour:
   health: 25
   maxHealth: 25
   deathParticles: {fileID: 5060687414257359992, guid: cc0e5006b30d42c489d079281b717016, type: 3}
+  DeathNoises:
+  - {fileID: 8300000, guid: e4b11b969ec1ce4478a50f77252f0ad8, type: 3}
 --- !u!114 &8865800958086946933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,6 +1230,8 @@ MonoBehaviour:
     rateOfFire: 0
     recoilAmount: 0
     adsSpeed: 0
+    adsScope: 0
+    adsTimer: 0
     hasShot: 0
     rateOfFireCDTimer: 0
     isCooling: 0

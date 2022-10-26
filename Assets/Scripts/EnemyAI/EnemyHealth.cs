@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class EnemyHealth : MonoBehaviour
 {
     public float health = 25;
@@ -9,10 +10,20 @@ public class EnemyHealth : MonoBehaviour
 
     public GameObject deathParticles;
 
+    [SerializeField]
+    private AudioClip[] DeathNoises;
+
     private void Update() {
         if (health <= 0) {
             GameObject deathParticle = Instantiate(deathParticles);
             deathParticle.transform.position = transform.position;
+
+            GameObject audio = new GameObject("SFX", typeof(AudioSource));
+            audio.GetComponent<AudioSource>().outputAudioMixerGroup = GetComponent<AudioSource>().outputAudioMixerGroup;
+            audio.GetComponent<AudioSource>().clip = DeathNoises[Random.Range(0, DeathNoises.Length)];
+            audio.GetComponent<AudioSource>().Play();
+            Destroy(audio, audio.GetComponent<AudioSource>().clip.length);
+
             Object.Destroy(gameObject);
         }
 

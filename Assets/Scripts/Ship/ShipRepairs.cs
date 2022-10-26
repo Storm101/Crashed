@@ -110,6 +110,8 @@ public class ShipRepairs : MonoBehaviour
                 modulesRepaired = other.GetComponent<CollectionSystem>().collectedParts;
 
                 other.GetComponent<CollectionSystem>().partsHolding = 0;
+
+                gameManager.GetComponent<AlertBox>().AlertPopup("You have started to install a module. \n Keep the ship safe until installation completes.", false, 5);
             }
         }
     }

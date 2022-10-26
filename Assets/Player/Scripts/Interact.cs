@@ -30,9 +30,11 @@ public class Interact : MonoBehaviour
                 keyPrompt.SetActive(true);
                 keyPrompt.transform.GetChild(0).GetComponent<TMP_Text>().text = "Press \"e\" to take off.";
                 if (Input.GetKeyDown(KeyCode.E))
+                {
                     SceneManager.LoadScene(2);
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
+                }
             }
             else
             {

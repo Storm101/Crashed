@@ -59,8 +59,8 @@ public class CameraController : MonoBehaviour {
 
     void Update() {
         
-        float MouseX = (Input.GetAxis("Joystick Horizontal") + Input.GetAxis("Mouse X")) * MouseSensitivity;
-        float MouseY = (Input.GetAxis("Joystick Vertical") + Input.GetAxis("Mouse Y")) * MouseSensitivity;
+        float MouseX = (Input.GetAxis("Joystick Horizontal") + Input.GetAxis("Mouse X")) * MouseSensitivity * Time.timeScale;
+        float MouseY = (Input.GetAxis("Joystick Vertical") + Input.GetAxis("Mouse Y")) * MouseSensitivity * Time.timeScale;
         if (MouseY + MouseYSum >= 75) {
             transform.localEulerAngles = new Vector3(-75, transform.localEulerAngles.y, transform.localEulerAngles.z);
             MouseY = 0;

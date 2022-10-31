@@ -35,8 +35,11 @@ public class Player_WeaponHandler : MonoBehaviour
 
     //Audio
     [SerializeField]
-    [Tooltip("The audio to play when the player has taken a shot")]
-    private AudioClip[] audioClips;
+    [Tooltip("The audio to play when the player has taken an ar shot")]
+    private AudioClip[] audioClipsAR;
+    [SerializeField]
+    [Tooltip("The audio to play when the player has taken a shotgun shot")]
+    private AudioClip[] audioClipsShotgun;
     [SerializeField]
     private AudioSource audioSource;
 
@@ -126,7 +129,7 @@ public class Player_WeaponHandler : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) || Input.GetAxis("Shoot") > 0) {
                     weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
-                    audioSource.clip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+                    audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
                     audioSource.Play();
                 }
             }
@@ -134,7 +137,7 @@ public class Player_WeaponHandler : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) || Input.GetAxis("Shoot") > 0) {
                     weaponManager.Fire(bulletSpawn, eyeSight, currentWeaponData, eyeSight, playerBulletMat, true, cameraController);
-                    audioSource.clip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+                    audioSource.clip = currentWeaponType == 1 ? audioClipsAR[UnityEngine.Random.Range(0, audioClipsAR.Length)] : audioClipsShotgun[UnityEngine.Random.Range(0, audioClipsShotgun.Length)];
                     audioSource.Play();
                 }
             }

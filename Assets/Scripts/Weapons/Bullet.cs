@@ -51,7 +51,6 @@ public class Bullet : MonoBehaviour
             //If the bullet hits the player, decrease their health by the bullet's damage
             if (other.gameObject.tag == "Player") {
                 other.gameObject.GetComponent<PlayerHealth>().health -= damage;
-
                 audio.GetComponent<AudioSource>().clip = playerHitNoises[Random.Range(0, playerHitNoises.Length)];
             }
 

@@ -1217,6 +1217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b172a559e574384e8041f3303a874b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gunshots:
+  - {fileID: 8300000, guid: 425d038de2329bd47aa1c7538abfc8cb, type: 3}
+  - {fileID: 8300000, guid: 7b30da357c1fd4c488cd7a0e3178c36d, type: 3}
   currentWeaponData:
     weaponName: 
     weaponPrefab: {fileID: 0}

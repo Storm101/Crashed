@@ -7,6 +7,10 @@ public class EnemyShooting : MonoBehaviour {
     //Weapon Manager Variable
     private WeaponManager weaponManager;
 
+    //Audio
+    private AudioSource audioSource;
+    public AudioClip[] Gunshots;
+
     //Weapon data
     private WeaponClasses weaponList;
     private GameObject currentWeapon;
@@ -32,6 +36,7 @@ public class EnemyShooting : MonoBehaviour {
 
         currentWeaponData = weaponList.primaryWeapons[1];
         bulletSpawn = BulletSpawn;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update() {
@@ -40,8 +45,11 @@ public class EnemyShooting : MonoBehaviour {
 
         if (!currentWeaponData.isCooling && !currentWeaponData.hasShot)
         {
-            if (Shoot)
+            if (Shoot) {
+                audioSource.clip = Gunshots[UnityEngine.Random.Range(0, Gunshots.Length)];
+                audioSource.Play();
                 weaponManager.Fire(bulletSpawn, arms, currentWeaponData, eyeSight, enemyBulletMat, false, null);
+            }
         }
     }
 }

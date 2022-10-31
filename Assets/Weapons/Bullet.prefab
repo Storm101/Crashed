@@ -135,13 +135,19 @@ MonoBehaviour:
   HitEnemy: {fileID: 5571924051268193269, guid: 95e64daa23391074a91d0083b0ea374f, type: 3}
   HitShip: {fileID: 4326996688248646562, guid: 467d0545fa7e1e74d814cc7627739a0f, type: 3}
   wallHitNoises:
-  - {fileID: 8300000, guid: 52de5e35a432cf14ea1bac152ccc81ea, type: 3}
+  - {fileID: 8300000, guid: 6e192afbc1ae0ff42a67d74fed954da8, type: 3}
+  - {fileID: 8300000, guid: 649ba9fbe9f613d4b9ffe9fd67da4ca5, type: 3}
+  - {fileID: 8300000, guid: b0f40ed816bc2284592d57058ff333f8, type: 3}
   playerHitNoises:
-  - {fileID: 8300000, guid: e91ec7705988ab44094224ebb1d5c97b, type: 3}
+  - {fileID: 8300000, guid: a0f683636e24cac4e975eb29a30e40c6, type: 3}
+  - {fileID: 8300000, guid: 8d1d35a265bd30143891efa333da6ee3, type: 3}
+  - {fileID: 8300000, guid: 830691873b295764ab5a40ce02e20e1b, type: 3}
+  - {fileID: 8300000, guid: 85786c738f10ecc4bbb5b174d0a975c4, type: 3}
   enemyHitNoises:
   - {fileID: 8300000, guid: 0501991d8f9b76a4e88872fe179d73c3, type: 3}
   shipHitNoises:
-  - {fileID: 8300000, guid: fcde888017ae6b944a850dffa38e0b88, type: 3}
+  - {fileID: 8300000, guid: 44ea2a46f829fba468e349e08aa2998f, type: 3}
+  - {fileID: 8300000, guid: 486543319b87d4f4aa71e4197137c750, type: 3}
   audioSource: {fileID: 2538317335242480675}
 --- !u!108 &8191597236310001076
 Light:

@@ -44,6 +44,7 @@ public class Bullet : MonoBehaviour
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
 
         GameObject audio = new GameObject("SFX", typeof(AudioSource));
+        audio.GetComponent<AudioSource>().spatialBlend = 1;
         audio.GetComponent<AudioSource>().outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
 
         if (isEnemyBullet)

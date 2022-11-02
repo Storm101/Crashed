@@ -21,7 +21,6 @@ public class WeaponManager : MonoBehaviour
             //Instantiate the bullet prefab and set it's variables set the bullet's damage
             GameObject bullet = Instantiate(currentWeaponData.bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
             bullet.GetComponent<MeshRenderer>().material = bulletMat;
-            bullet.GetComponent<Light>().color = bulletMat.color;
             bullet.GetComponent<Bullet>().damage = currentWeaponData.damage;
             if (isPlayer)
                 bullet.GetComponent<Bullet>().isEnemyBullet = false;
